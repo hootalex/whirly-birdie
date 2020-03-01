@@ -1,0 +1,32 @@
+@font-face {
+  font-family: "Whirly Birdie";
+  src: url("https://cdn.glitch.com/1711052e-ea5e-4036-9c61-dd3ef6782855%2FWhirlyBirdieGX.ttf?v=1583088708049")
+    format("truetype");
+}
+
+@font-face {
+  font-family: "Whirlybats";
+  src: url("https://cdn.glitch.com/1711052e-ea5e-4036-9c61-dd3ef6782855%2FWhirlybatsGX.ttf?v=1583088712704")
+    format("truetype");
+}
+
+html, body {
+  font-family: "Whirly Birdie";
+  font-variation-settings: "wght" 75, "wdth" 110, "ital" 0;
+}
+
+/* Master colors */
+
+:root {
+  --black: #000000;
+  --white: #ffffff;
+  --red: #D53540;
+  --blue: #3E8BCA;
+  --sun: #FCD836;
+  --forest: #464D33;
+  --green: #079548;
+  --lightgreen: #CCD9D1;
+  --wood: #AD6C2F;
+
+  --radius: 45px;
+}
