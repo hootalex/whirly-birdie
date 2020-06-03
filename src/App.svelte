@@ -1,35 +1,42 @@
 <script>
-	export let name="alex";
-  import Nav from './Navigation.svelte'
+	export let name;
+	import Hero from './components/Hero.svelte';
+	import TypeMain from './components/TypeMain.svelte'
+	import GlyphMain from './components/GlyphMain.svelte'
+	import { scrollY, mousePos } from './components/stores.js';
+	let onScroll = e => {
+		scrollY.set(e.target.documentElement.scrollTop) //Set global scroll value
+	}
+	let onMouseMove = e => {
+		mousePos.set({
+			x:e.clientX,
+			y:e.clientY
+		})  //Set global mouse position value
+	}
 </script>
 
+<!--Handle Scroll and MousePos Events-->
+<svelte:window 
+on:scroll={onScroll}
+on:mousemove={onMouseMove}
+/> 
 
+<!--Handle Scroll and MousePos Events-->
 <main>
-  <Nav/>
-	<h1>Hello {name}, welcome to Svelte!</h1>
-	<p><a href="https://glitch.com/edit/#!/svelte">Remix this on Glitch</a> and visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
-  
-  <div class="glitchButton" style="position:absolute;top:20px;right:20px;"></div>
+  <Hero/>
+  <TypeMain/>
+  <GlyphMain/>
 </main>
 
 <style>
 	main {
-		text-align: center;
-		padding: 1em;
-		max-width: 240px;
-		margin: 0 auto;
+		display:grid;
+		grid-template-columns: repeat(12, 1fr);
+		grid-auto-rows: minmax(min-content, max-content);
+		column-gap: 16px;
+		row-gap: 40px;
+		margin: 0 40px 0 40px;
+		min-height: 500vh;
 	}
 
-	h1 {
-		color: #ff3e00;
-		text-transform: uppercase;
-		font-size: 4em;
-		font-weight: 200;
-	}
-
-	@media (min-width: 640px) {
-		main {
-			max-width: none;
-		}
-	}
 </style>
