@@ -2,19 +2,11 @@
 import Bird from './Bird.svelte';
 import { scrollY } from './stores.js';
 import { spring } from 'svelte/motion';
-// import { spring, tweened } from 'svelte/motion';
-// import { cubicOut } from 'svelte/easing';
-
 
 const yMax = spring(0,{
 		stiffness: 0.08,
 	  damping: 0.5
   })
-
-// const yMax = tweened(0, {
-// 		duration: 400,
-// 		easing: cubicOut
-// 	});  
 
 scrollY.subscribe(value => {
   let inc = .2

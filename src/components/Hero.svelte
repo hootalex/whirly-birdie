@@ -12,7 +12,7 @@ import Street from './Street.svelte'
 
 <style>
     section{
-        margin: 0 -40px 0 -40px;
+        margin: 0 calc(-1 * var(--margin)) 0 calc(-1 * var(--margin));
         grid-column:1 / 13;
         display:block;
         overflow:hidden;

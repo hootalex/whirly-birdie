@@ -1,7 +1,7 @@
 dependencies:
   '@rollup/plugin-commonjs': 11.0.2
   '@rollup/plugin-node-resolve': 7.1.1
-  rollup: 1.32.0
+  rollup: 2.18.2
   rollup-plugin-livereload: 1.0.4
   rollup-plugin-svelte: 5.1.1
   rollup-plugin-terser: 5.2.0
@@ -68,10 +68,6 @@ packages:
     dev: false
     resolution:
       integrity: sha512-EYNwp3bU+98cpU4lAWYYL7Zz+2gryWH1qbdDTidVd6hkiR6weksdbMadyXKXNPEkQFhXM+hVO9ZygomHXp+AIw==
-  /@types/estree/0.0.42:
-    dev: false
-    resolution:
-      integrity: sha512-K1DPVvnBCPxzD+G51/cxVIoc2X8uUVl1zpJeE6iKcgHMj4+tbat5Xu4TjV7v2QSDbIeAfLi2hIk+u2+s0MlpUQ==
   /@types/node/13.7.7:
     dev: false
     resolution:
@@ -82,13 +78,6 @@ packages:
     dev: false
     resolution:
       integrity: sha512-auApPaJf3NPfe18hSoJkp8EbZzer2ISk7o8mCC3M9he/a04+gbMF97NkpD2S8riMGvm4BMRI59/SZQSaLTKpsQ==
-  /acorn/7.1.1:
-    dev: false
-    engines:
-      node: '>=0.4.0'
-    hasBin: true
-    resolution:
-      integrity: sha512-add7dgA5ppRPxCFJoAGfMDi7PIBXq1RtGo7BhbLaxwrXPOmw8gq48Y9ozT01hUKy9byMjlR20EJhu5zlkErEkg==
   /ansi-styles/3.2.1:
     dependencies:
       color-convert: 1.9.3
@@ -447,6 +436,15 @@ packages:
     requiresBuild: true
     resolution:
       integrity: sha512-+ux3lx6peh0BpvY0JebGyZoiR4D+oYzdPZMKJwkZ+sFkNJzpL7tXc/wehS49gUAxg3tmMHPHZkA8JU2rhhgDHw==
+  /fsevents/2.1.3:
+    dev: false
+    engines:
+      node: ^8.16.0 || ^10.6.0 || >=11.0.0
+    optional: true
+    os:
+      - darwin
+    resolution:
+      integrity: sha512-Auw9a4AxqWpa9GUfj370BMPzzyncfBABW8Mab7BGWBYDj4Isgq+cDKtx0i6u9jcX9pQDnswsaaOTgTmA5pEjuQ==
   /get-port/3.2.0:
     dev: false
     engines:
@@ -1000,15 +998,15 @@ packages:
     dev: false
     resolution:
       integrity: sha512-EEp9NhnUkwY8aif6bxgovPHMoMoNr2FulJziTndpt5H9RdwC47GSGuII9XxpSdzVGM0GWrNPHV6ie1LTNJPaLQ==
-  /rollup/1.32.0:
-    dependencies:
-      '@types/estree': 0.0.42
-      '@types/node': 13.7.7
-      acorn: 7.1.1
+  /rollup/2.18.2:
     dev: false
+    engines:
+      node: '>=10.0.0'
     hasBin: true
+    optionalDependencies:
+      fsevents: 2.1.3
     resolution:
-      integrity: sha512-ab2tF5pdDqm2zuI8j02ceyrJSScl9V2C24FgWQ1v1kTFTu1UrG5H0hpP++mDZlEFyZX4k0chtGEHU2i+pAzBgA==
+      integrity: sha512-+mzyZhL9ZyLB3eHBISxRNTep9Z2qCuwXzAYkUbFyz7yNKaKH03MFKeiGOS1nv2uvPgDb4ASKv+FiS5mC4h5IFQ==
   /sade/1.7.0:
     dependencies:
       mri: 1.1.4
@@ -1278,7 +1276,7 @@ shrinkwrapVersion: 3
 specifiers:
   '@rollup/plugin-commonjs': ^11.0.2
   '@rollup/plugin-node-resolve': ^7.1.0
-  rollup: ^1.31.1
+  rollup: ^2.18.2
   rollup-plugin-livereload: ^1.0.4
   rollup-plugin-svelte: ^5.1.0
   rollup-plugin-terser: ^5.2.0

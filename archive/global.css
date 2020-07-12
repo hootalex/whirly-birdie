@@ -1,12 +1,18 @@
 @font-face {
   font-family: "Whirly Birdie";
-  src: url("https://cdn.glitch.com/1711052e-ea5e-4036-9c61-dd3ef6782855%2FWhirlyBirdieGX.ttf?v=1591147305228")
+  src: url("https://cdn.glitch.com/1711052e-ea5e-4036-9c61-dd3ef6782855%2FWhirlyBirdieGX.ttf?v=1594304904235")
     format("truetype");
 }
 
 @font-face {
   font-family: "Whirlybats";
-  src: url("https://cdn.glitch.com/1711052e-ea5e-4036-9c61-dd3ef6782855%2FWhirlybatsGX.ttf?v=1585343659177")
+  src: url("https://cdn.glitch.com/1711052e-ea5e-4036-9c61-dd3ef6782855%2FWhirlybatsGX.ttf?v=1594343426054")
+    format("truetype");
+}
+
+@font-face {
+  font-family: "Whirlybats UI";
+  src: url("https://cdn.glitch.com/1711052e-ea5e-4036-9c61-dd3ef6782855%2FWhirlybatsUIGX.ttf?v=1591649382889")
     format("truetype");
 }
 
@@ -33,6 +39,8 @@
   --lightgrey:#d5d4d4;
   
   --radius: 45px;
+  --margin: 40px;
+  --padding: 50px;
 }
 
 html, body {
@@ -46,4 +54,11 @@ background-color: var(--offwhite);
 @keyframes basicAnimation {
   0%   { font-variation-settings: "anim" 100; }
   100% { font-variation-settings: "anim" 200; }
+}
+
+@media screen and (max-width: 600px) {
+	:root{
+    --margin:8px;
+    --padding:20px;
+  }
 }

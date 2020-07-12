@@ -11,7 +11,9 @@
     ],
     "include": [
       "\\.js$",
-      "\\.svelte"
+      "\\.svelte",
+      "\\.css",
+      "\\.html"
     ]
   },
   "throttle": 500

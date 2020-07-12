@@ -4,7 +4,7 @@ export let message //Exporting a variable lets it be visible to the parent compo
 </script>
 <div>
     <p class="message">{message}</p> <!-- The prop called "Message" takes the received string and adds additional string elements! -->
-    <p class="bird">B<p>
+    <p class="bird">!<p>
     
 </div>
 

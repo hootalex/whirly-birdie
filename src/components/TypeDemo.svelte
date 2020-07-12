@@ -34,35 +34,54 @@ $: cssString = "font-variation-settings:\'wght\' "+variableAxis.weight+", \'wdth
 
 </script>
 
-<div bind:this={dom_node}>
-<div class="select">
-<select class="type-presets" 
-on:change={e=>presetChanged(e.currentTarget)}
->
-    <option hidden disabled class="custom" value={initialStyle.replace(/-/g, ' ') + '*'}>{initialStyle.replace(/-/g, ' ') + '*'}</option>
-    {#each styleNames as styleName}
-        <option value={styleName} selected={(styleName === initialStyle) ? true : false}>
-            {styleName.replace(/-/g, ' ')}
-        </option>
-    {/each}
-</select>
-  <div class="select_arrow">
+<section bind:this={dom_node}>
+
+<div class="controls">
+  <div class="select">
+    <select 
+    aria-label="Type Presets"
+    class="type-presets" 
+    on:change={e=>presetChanged(e.currentTarget)}
+    >
+        <option hidden disabled class="custom" value={initialStyle.replace(/-/g, ' ') + '*'}>{initialStyle.replace(/-/g, ' ') + '*'}</option>
+        {#each styleNames as styleName}
+            <option value={styleName} selected={(styleName === initialStyle) ? true : false}>
+                {styleName.replace(/-/g, ' ')}
+            </option>
+        {/each}
+    </select>
+      <div class="select_arrow"></div>
+  </div>
+
+  <div class="sliders">
+    <div class="slider">
+      <label>Weight:</label>
+      <input 
+             aria-label="Weight Axis"
+             type="range" min="50" max="100" value={variableAxis.weight} class="slider weight" on:input={(e)=>{ selectCustom(); variableAxis.weight = e.currentTarget.value;}}>
     </div>
+    <div class="slider">
+      <label>Width:</label>
+      <input 
+             aria-label="Width Axis"
+             type="range" min="50" max="150" value={variableAxis.width} class="slider width" 
+      on:input={(e)=>{ selectCustom(); variableAxis.width = e.currentTarget.value;}}>
+    </div>
+    <div class="slider">
+      <label>Italic:</label>
+      <input 
+             aria-label="Italic Axis"
+             type="range" min="0" max="20" value={variableAxis.italic} class="slider italic" 
+      on:input={(e)=>{ selectCustom(); variableAxis.italic = e.currentTarget.value;}}>
+    </div>
+  </div>
 </div>
 
-<div style="font-family:'Nicholson Beta';font-size:13px;display:inline;color:var(--type);">
-Weight:
-<input type="range" min="50" max="100" value={variableAxis.weight} class="slider weight" on:input={(e)=>{ selectCustom(); variableAxis.weight = e.currentTarget.value;}}>
-Width:
-<input type="range" min="50" max="150" value={variableAxis.width} class="slider width" 
-on:input={(e)=>{ selectCustom(); variableAxis.width = e.currentTarget.value;}}>
-Italic:
-<input type="range" min="0" max="20" value={variableAxis.italic} class="slider italic" 
-on:input={(e)=>{ selectCustom(); variableAxis.italic = e.currentTarget.value;}}>
-</div>
 <p contenteditable="true" spellcheck="false" style="{cssString+';font-size:'+fontSize}">{initialText}</p>
 
-</div>
+
+</section>
+
 
 <style>
 
@@ -73,23 +92,52 @@ on:input={(e)=>{ selectCustom(); variableAxis.italic = e.currentTarget.value;}}>
 }
 
 select, input, p { outline: none; }
+section {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
+.controls{
+  display: inline-block;
+  padding: 15px;
+  position: relative;
+}
+.controls:before{
+  content:'';
+  position:absolute;
+  top:0;left:0;
+  width:100%;height:100%;
+  border-radius: 18px;
+  background:var(--type);
+  opacity:var(--alpha);
+  pointer-events: none;
+}
 input {
   width: 100px;
 }
 
 
-div {
-  text-align: center;
-}
 
+.sliders{
+  font-family:'Nicholson Beta';font-size:13px;display:inline-block;color:var(--type);
+}
+.slider{
+  display: inline-block;
+  margin:8px 15px 8px 15px ;
+}
+label{
+  margin-right:4px;
+}
 p {
   font-size: 5vw;
   margin: 10px;
-  padding-bottom: 30px;
+  padding-bottom: 0px;
   margin-bottom: 30px;
   border-bottom: 0px solid var(--type);
   color: var(--type);
+  width:100%;
 }
 
     select, select option{
@@ -99,10 +147,9 @@ p {
     input[type=range] {
   -webkit-appearance: none;
   margin: 12px 0;
-  padding-bottom: 4px;
   background-color: var(--bg);
       margin: 0;
-      padding: 0;
+      padding: 0 0 4px 0;
 }
 input[type=range]:focus {
   outline: none;
@@ -172,7 +219,7 @@ input[type=range]:focus::-ms-fill-upper {
 .select {
     position: relative;
     display: inline-block;
-    margin-bottom: 15px;
+    margin: 0 15px 0 0;
 }    
 
 .select select {
@@ -204,6 +251,58 @@ input[type=range]:focus::-ms-fill-upper {
     border-style: solid;
     border-width: 8px 5px 0px 5px;
     border-color: var(--type) transparent transparent transparent;
+}
+
+@media screen and (max-width: 990px) {
+  .controls{
+    display: block;
+    width: calc(100% - 24px);
+    max-width: 400px;
+  }
+  .select{
+    margin: 8px 15px 8px 15px;
+    width: calc(100% - 25px);
+  }
+  .select select{
+    width:100%;
+  }
+  .sliders{
+    display: block;
+  }
+	.slider{
+      display: flex;
+      margin: 15px 15px 8px 15px;
+      /* width: 100%; */
+      width: calc(100% - 24px);
+      display: flex;
+  }
+  label{
+    margin-right: 8px;
+    width: 48px;
+    text-align: left;
+  }
+      input[type=range]{
+        padding-bottom: 0;
+      }
+      p{
+          margin-top: 30px;
+      }
+
+}
+
+@media (hover: hover) {
+  section{
+
+  }
+  .controls{
+    opacity:0;
+    transition:.4s;
+    transform: translate3d(0,10px,0)
+  }
+  section:hover .controls{
+    opacity:1;
+    transform: translate3d(0,0,0)
+  }
 }
 
 

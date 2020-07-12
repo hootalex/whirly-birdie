@@ -2,7 +2,7 @@
 export let positionX = 'left:0px'
 export let positionY = 'top:0px'
 export let positionZ = 'z-index:0'
-export let letter = '/';
+export let letter = '…';
 </script>
 
 <div class="tree" style="{positionX};{positionY};{positionZ}">

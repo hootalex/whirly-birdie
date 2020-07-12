@@ -8,17 +8,17 @@ import Tree from './Tree.svelte'
 <div class="car2">J</div>
 <div class="snail">j</div>
     
-<Tree letter={'/'} positionX={'right:-.5%'} positionY={'transform: translateY(-20px);'}/>
+<Tree letter={'…'} positionX={'right:-.5%'} positionY={'transform: translateY(-20px);'}/>
 
-<Tree letter={'/'} positionX={'right:25%'} positionY={'transform: translateY(-12px);'}/>
+<Tree letter={'…'} positionX={'right:25%'} positionY={'transform: translateY(-12px);'}/>
 
-<Tree letter={'/'} positionX={'right:15%'} positionY={'transform: translateY(-62px);'}/>
+<Tree letter={'…'} positionX={'right:15%'} positionY={'transform: translateY(-62px);'}/>
 
-<Tree letter={'/'} positionX={'left:25%'} positionY={'transform: translateY(-59px);'}/>
+<Tree letter={'…'} positionX={'left:25%'} positionY={'transform: translateY(-59px);'}/>
 
-<Tree letter={'/'} positionX={'right:40%'} positionY={'transform: translateY(-23px);'}/>
+<Tree letter={'…'} positionX={'right:40%'} positionY={'transform: translateY(-23px);'}/>
 
-<Tree letter={'/'} positionX={'left:-.5%'} positionY={'transform: translateY(-36px);'}/>
+<Tree letter={'…'} positionX={'left:-.5%'} positionY={'transform: translateY(-36px);'}/>
 
 </div>
 
