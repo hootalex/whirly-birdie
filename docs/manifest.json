@@ -2,7 +2,7 @@
   "name": "Whirly Birdie",
   "short_name": "WhirlyBirdie",
   "background_color": "#fff4e7",
-  "theme_color":"#e54646",
+  "theme_color": "#e54646",
   "display": "standalone",
   "Scope": "./",
   "start_url": "/index.html",

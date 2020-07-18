@@ -9,29 +9,26 @@
     if(themeID !== $themeColor.selected){
       switch(themeID) {
         case 'invert':
-          themeColor.set({selected:themeID,type:'var(--white)',bg:'var(--black)',alpha:'.1'})
+          themeColor.set({selected:themeID,type:'var(--white)',type2:'var(--offwhite)',bg:'var(--black)',bg2:'var(--red)',alpha:'.1'})
           break;
         case 'red':
-          themeColor.set({selected:themeID,type:'var(--sun)',bg:'var(--red)',alpha:'.1'})
+          themeColor.set({selected:themeID,type:'var(--sun)',type2:'var(--red)',bg:'var(--red)',bg2:'var(--offwhite)',alpha:'.15'})
           break;
         case 'blue':
-          themeColor.set({selected:themeID,type:'var(--blue)',bg:'var(--navy)',alpha:'.1'})
+          themeColor.set({selected:themeID,type:'var(--blue)',type2:'var(--red)',bg:'var(--navy)',bg2:'var(--sun)',alpha:'.1'})
           break;
         case 'sun':
-          themeColor.set({selected:themeID,type:'var(--sun)',bg:'var(--wood)',alpha:'.1'})
+          themeColor.set({selected:themeID,type:'var(--sun)',type2:'var(--wood)',bg:'var(--wood)',bg2:'var(--offwhite)',alpha:'.1'})
           break;
         case 'green':
-          themeColor.set({selected:themeID,type:'var(--lightgreen)',bg:'var(--green)',alpha:'.1'})
-          break;
-        case 'navy':
-          themeColor.set({selected:themeID,type:'var(--offwhite)',bg:'var(--navy)',alpha:'.1'})
+          themeColor.set({selected:themeID,type:'var(--lightgreen)',type2:'var(--white)',bg:'var(--green)',bg2:'var(--sun)',alpha:'.1'})
           break;
         default:
           break;
       }
 
     }else{
-      themeColor.set({selected:null,type:'var(--black)',bg:'var(--white)',alpha:'.05'})
+      themeColor.set({selected:null,type:'var(--black)',type2:'var(--white)',bg:'var(--white)',bg2:'var(--blue)',alpha:'.05'})
     }    
 
   }
@@ -51,7 +48,7 @@
 <style>
 .colorpicker {
 width: 100%;
-text-align: center;
+text-align: right;
 margin-bottom: 15px;
 }
 
@@ -68,4 +65,10 @@ margin-bottom: 15px;
 .colorpicker div.selected{
   border:2px solid var(--white)
 }
+@media screen and (max-width: 990px) {
+  .colorpicker{
+    text-align: center;
+  }
+}
+
 </style>

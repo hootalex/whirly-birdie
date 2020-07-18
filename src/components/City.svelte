@@ -9,7 +9,7 @@ import Bridge from './Bridge.svelte'
     buildingSize={'narrowtower'}
     positionX={'left:220px'} 
     positionY={'bottom:60px'} 
-    signText={'<span class="linearanimation">E</span>'}
+    signText={'<span>E</span>'}
     signCSS={'font-family:"Whirlybats";font-size:110px;padding-top: 15px;color:var(--sun);background:var(--blue);animation: basicAnimation 1s linear infinite;'}
 />
 

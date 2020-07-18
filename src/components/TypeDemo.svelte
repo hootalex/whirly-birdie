@@ -21,7 +21,7 @@ const selectCustom = () => {
     let customOption = dom_node.querySelector('.custom')
     customOption.hidden = false
     customOption.selected = true
-    customOption.innerHTML = selected.replace(/-/g, ' ') + '*'
+    // customOption.innerHTML = selected.replace(/-/g, ' ') + '*'
 }
 
 $: variableAxis = {
@@ -43,7 +43,7 @@ $: cssString = "font-variation-settings:\'wght\' "+variableAxis.weight+", \'wdth
     class="type-presets" 
     on:change={e=>presetChanged(e.currentTarget)}
     >
-        <option hidden disabled class="custom" value={initialStyle.replace(/-/g, ' ') + '*'}>{initialStyle.replace(/-/g, ' ') + '*'}</option>
+        <option hidden disabled class="custom" value='Custom'>Custom</option>
         {#each styleNames as styleName}
             <option value={styleName} selected={(styleName === initialStyle) ? true : false}>
                 {styleName.replace(/-/g, ' ')}
@@ -122,6 +122,7 @@ input {
 
 .sliders{
   font-family:'Nicholson Beta';font-size:13px;display:inline-block;color:var(--type);
+   font-feature-settings: "salt" 2;
 }
 .slider{
   display: inline-block;
@@ -225,6 +226,7 @@ input[type=range]:focus::-ms-fill-upper {
 .select select {
         width: 230px;
         font-family: "Nicholson Beta";
+  font-feature-settings: "salt" 2;
         font-size: 13px;
         display: inline-block;
         cursor: pointer;
@@ -253,11 +255,25 @@ input[type=range]:focus::-ms-fill-upper {
     border-color: var(--type) transparent transparent transparent;
 }
 
+@media (hover: hover) {
+  .controls{
+    opacity:0;
+    transition:.4s;
+    transform: translate3d(0,10px,0)
+  }
+  section:hover .controls{
+    opacity:1;
+    transform: translate3d(0,0,0)
+  }
+}
+
 @media screen and (max-width: 990px) {
   .controls{
     display: block;
     width: calc(100% - 24px);
     max-width: 400px;
+    opacity:1;
+    transform: translate3d(0,0,0)
   }
   .select{
     margin: 8px 15px 8px 15px;
@@ -290,20 +306,7 @@ input[type=range]:focus::-ms-fill-upper {
 
 }
 
-@media (hover: hover) {
-  section{
 
-  }
-  .controls{
-    opacity:0;
-    transition:.4s;
-    transform: translate3d(0,10px,0)
-  }
-  section:hover .controls{
-    opacity:1;
-    transform: translate3d(0,0,0)
-  }
-}
 
 
 </style>

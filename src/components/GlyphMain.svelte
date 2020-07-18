@@ -1,13 +1,14 @@
 <script>
-import TypeDemo from './TypeDemo.svelte'
 import ColorPicker from './ColorPicker.svelte'
 import { glyphColor } from './stores.js';
 
 let uppercase = false;
 let numlock = false;
 let symlock = false; 
-let savedKey = 'y'
+let savedKey = 'g'
+// let unfinished = ';)”%^~€¥£•'
 let unfinished = []
+
 
 let keyOrder = [{
     default:'qwertyuiop',
@@ -46,7 +47,7 @@ const handleCapKey = (event) => {
     }else{
         symlock = !symlock
     }
-    console.log(symlock)
+    console.log({'sym:':symlock,'num':numlock,'cap':uppercase},savedKey)
 }
 
 const handleNumKey = (event) => {
@@ -58,14 +59,13 @@ const handleNumKey = (event) => {
     }else{
 
     }
+    console.log({'sym:':symlock,'num':numlock,'cap':uppercase},savedKey)
 }
 
 </script>
 
-<section style='--type:{$glyphColor.type};--bg:{$glyphColor.bg};--alpha:{$glyphColor.alpha}'>
+<section style='--type:{$glyphColor.type};--bg:{$glyphColor.bg};--type2:{$glyphColor.type2};--bg2:{$glyphColor.bg2};--alpha:{$glyphColor.alpha}'>
 <ColorPicker themeColor={glyphColor}/>
-<h2>
-</h2>
 <container class="interactive">
     <div class="display">
         <div class="featured">
@@ -99,10 +99,14 @@ const handleNumKey = (event) => {
                         class="{
                         (!uppercase && unfinished.includes(keyOrder[i].default.charAt(j))) ? 'hidden'
                         : (uppercase && unfinished.includes(keyOrder[i].upper.charAt(j))) ? 'hidden'
+                        : (numlock && !symlock && unfinished.includes(keyOrder[i].num.charAt(j))) ? 'hidden'
+                        : (numlock && symlock && unfinished.includes(keyOrder[i].sym.charAt(j))) ? 'hidden'
                         : ''
                         } {
-                        (!uppercase && savedKey === keyOrder[i].default.charAt(j)) ? 'selected' 
+                        (!uppercase && !numlock && savedKey === keyOrder[i].default.charAt(j)) ? 'selected' 
                         : (uppercase && savedKey === keyOrder[i].upper.charAt(j)) ? 'selected'
+                        : (numlock && !symlock && (savedKey === keyOrder[i].num.charAt(j))) ? 'selected'
+                        : (numlock && symlock && (savedKey === keyOrder[i].sym.charAt(j))) ? 'selected'
                         : ''
                         }"
                     >
@@ -122,10 +126,10 @@ const handleNumKey = (event) => {
             class="num">
                 <p>{numlock ? 'abc' : '123'}</p>
             </button>
-            <div class="null"></div>
+            <!-- <div class="null"></div> -->
             <div class="spacebar"></div>
             <!-- <div class="return"></div> -->
-            <button
+            <!-- <button
             on:click={(e)=>{savedKey='.'}}
             class="{
                 (savedKey === '.') ? 'selected' 
@@ -133,7 +137,7 @@ const handleNumKey = (event) => {
             }"
             >
             <p>.</p>
-            </button>
+            </button> -->
         </div>
     </container>
 </container>
@@ -150,21 +154,27 @@ const handleNumKey = (event) => {
         border-radius: var(--radius);
         height: fit-content;
         background-color: var(--bg);
-        color:var(--type)
+        color:var(--type);
+        margin-bottom:calc(var(--padding) * 2)
+/*              border-top-right-radius: 0px; */
+
     }
+    
     .interactive{
         display: flex;
         justify-content: space-evenly;
         flex-wrap: wrap;
-        width:100%
+        width:100%;
+/*         margin: 0 0 var(--padding) 0; */
     }
     .row{
         display: flex;
     }
     button{
-        --radius:2px;
-        width:8.5vw;
+        --radius:10px;
+        width:8.25vw;
         max-width:80px;
+        min-width: 30px;
         height:6vw;
         max-height:60px;
         margin:4px;
@@ -188,6 +198,7 @@ const handleNumKey = (event) => {
         transform: scale3d(0.9,0.9,0.9);
         color:var(--bg);
         font-family: "Whirly Birdie";
+        font-variation-settings: "wght" 75, "wdth" 110, "ital" 0;
         pointer-events: none;
     }
     /* button.selected:after{
@@ -207,8 +218,8 @@ const handleNumKey = (event) => {
     }
     button:before{
         content: '';
-        width:8.5vw;
-        height:8.5vw;
+        width:8.25vw;
+        height:8.25vw;
         min-width:100px;
         min-height:100px;
         max-height: 100px;
@@ -216,7 +227,7 @@ const handleNumKey = (event) => {
         position: absolute;
         /* opacity: calc(var(--alpha) * 2.5); */
         border-radius: 50%;
-        background: var(--type2);
+        background: var(--bg2);
         z-index:0;
         transform:scale3d(0,0,0);
         transition:.4s;
@@ -224,26 +235,55 @@ const handleNumKey = (event) => {
     button.selected:before{
         transform:scale3d(1.05,1.05,1.05)
     }
-  button p {
+    button.hidden{
+        pointer-events: none;
+    }
+    button.hidden p{
+        /* display: none; */
+    }
+   button p {
     pointer-events:none;
     margin:0;
     font-size:clamp(10px , 4vw , 40px);
     z-index: 1;
   }
-    .cap{
+  button.selected p{
+    font-size:clamp(10px , 4vw , 24px);
+    color:var(--type2)
+  }
+    .cap,.cap.selected{
         transition: font-variation-settings .3s;
-        font-family:'Whirlybats UI'
+        font-family:'Whirlybats UI';
+    }
+    .cap.selected p{
+        font-size:clamp(10px , 4vw , 40px);
+        color:var(--bg)
     }
     .cap,.num{
         position: absolute;
         left: 0;
     }
-    .cap.numlock,.num{
-        font-family: "Whirly Birdie"
+    .capock,.num{
+        font-family: "Whirly Birdie";
+        font-variation-settings: "wght" 75, "wdth" 110, "ital" 0;
     }
     .cap.numlock p,.num p{
-        font-size:clamp(10px , 3vw , 24px);
+        font-size:clamp(10px , 3vw , 20px);
     }
+  
+  
+  
+    /* remove when ready */
+    .cap.numlock{
+        pointer-events: none;
+        color:transparent;
+        display:none;
+    }
+  
+  
+  
+  
+  
     .cap:after,.num:after{
         opacity: calc(var(--alpha) * 4);
     }
@@ -261,7 +301,7 @@ const handleNumKey = (event) => {
         display: none;
     }
     .null{
-         --radius:2px;
+        --radius:4px;
         width:8.5vw;
         max-width:80px;
         height:6vw;
@@ -272,7 +312,7 @@ const handleNumKey = (event) => {
         opacity:0;
     }
     .spacebar{
-        --radius:2px;
+        --radius:10px;
         width: calc(42.5vw + 8px * 4);
         max-width: 432px;
         height:6vw;
@@ -298,11 +338,18 @@ const handleNumKey = (event) => {
 
     .display{
         width:100%;
-        max-width: 800px;
+/*         max-width: 1000px; */
+          justify-content: center;
+    align-items: center;
+    display: flex;
         /* background:var(--lightgrey) */
     }
     .featured{
         opacity:1;
+        display:flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom:var(--padding)
     }
     .featured.hide{
         /* opacity:0; */
@@ -310,11 +357,22 @@ const handleNumKey = (event) => {
     .featured h3{
         font-family: "Whirlybats";
         animation: basicAnimation 1s infinite;
-        font-size: clamp(10px , 100vw , 208px);
+        font-size: clamp(100px , 80vw , 200px);
         margin: 0;
         text-align: center;
         font-weight: normal;
+      position: relative
     }
+  .featured h3:after{
+    content:'';
+    position:absolute;
+    top:0;left:0;
+    width:calc(100% - 8px);
+    height:calc(100% - 8px);
+    opacity:calc(var(--alpha) * 3);
+/*     border:4px dotted var(--type); */
+    pointer-events:none;
+  }
     #keyboard{
         display: flex;
         flex-direction: column;
@@ -322,8 +380,9 @@ const handleNumKey = (event) => {
         align-items: center;
         position: relative;
     }
-
+  
     @media screen and (max-width: 1000px) {
+  
         button{
             max-width:60px;
         }
@@ -339,13 +398,33 @@ const handleNumKey = (event) => {
             max-width: 80px;
             max-height: 80px;    
         }
+      
+        .featured h3{
+           font-size: clamp(100px , 80vw , 200px);
+          
+        }
         .spacebar{
             width:calc(42.5vw + 4px * 4);
-        }
-        #keyboard{
-            margin-bottom: 24px
+            max-width: 316px;
         }
     }
+  
+  @media screen and (max-width: 750px){
+      .display{
+        margin:var(--padding) 0 var(--padding) 0
+      }
+    section{
+         border-top-left-radius: 0px;
+      border-top-right-radius: 0px;
+    }
+  }
+  
+  @media screen and (max-width: 600px){
+      section{
+/*         margin: 0 8px 0 8px; */
+      }
+  } 
+
 
     @media (hover: hover) {
         button:hover{
@@ -358,12 +437,12 @@ const handleNumKey = (event) => {
         button.selected:hover:after{
             opacity: calc(var(--alpha) * 2)
         }
-        .cap:hover{
+        .num:hover,.cap:hover{
             animation: none;
         }
-        .cap:hover:after,.num:hover:after{
+        /* .cap:hover:after,.num:hover:after{
             opacity: calc(var(--alpha) * 4);
-        }
+        } */
     }
 
 </style>
