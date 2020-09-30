@@ -1,7 +1,8 @@
 <script>
 import Bird from './Bird.svelte';
 import Star from './Star.svelte';
-import { WIDTH,scrollY,constrain } from './stores.js';
+import { WIDTH,scrollY } from './stores.js';
+import {constrain} from './helpers.js'
 import {spring } from 'svelte/motion';
 
 export let time = 0
@@ -20,11 +21,11 @@ $:{
 
 </script>
 
-<Star letter={'E'} positionX={'right:4%'} positionY={'transform: translateY(-130px); '}/>
+<!-- <Star letter={'E'} positionX={'right:4%'} positionY={'transform: translateY(-130px); '}/>
 <Star letter={'E'} positionX={'left:4%'} positionY={'transform: translateY(-180px); '}/>
 <Star letter={'E'} positionX={'left:30%'} positionY={'transform: translateY(-150px); animation-delay: 2s;'}/>
 <Star letter={'E'} positionX={'right:34%'} positionY={'transform: translateY(120px); animation-delay: 2s;'}/>
-<Star letter={'E'} positionX={'left:34%'} positionY={'transform: translateY(120px); '}/>
+<Star letter={'E'} positionX={'left:34%'} positionY={'transform: translateY(120px); '}/> -->
 
 <div class="titleContainer">
   <!-- <Bird message={'A new Font!'}/>  -->

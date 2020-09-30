@@ -1,0 +1,159 @@
+<script>
+import Bird from './Bird.svelte';
+import Star from './Star.svelte';
+import { WIDTH,scrollY,constrain } from './stores.js';
+import {spring } from 'svelte/motion';
+
+export let time = 0
+export let timeB = 0
+let timeStep = 0
+let titleDom = null
+
+const yMax = spring(0,{
+		stiffness: 0.08,
+	  damping: 0.5
+  })
+
+$:{
+  timeStep = constrain(Math.floor((timeB)/(1/11)),{min:0,max:11})
+}  
+
+</script>
+
+<!-- <Star letter={'E'} positionX={'right:4%'} positionY={'transform: translateY(-130px); '}/>
+<Star letter={'E'} positionX={'left:4%'} positionY={'transform: translateY(-180px); '}/>
+<Star letter={'E'} positionX={'left:30%'} positionY={'transform: translateY(-150px); animation-delay: 2s;'}/>
+<Star letter={'E'} positionX={'right:34%'} positionY={'transform: translateY(120px); animation-delay: 2s;'}/>
+<Star letter={'E'} positionX={'left:34%'} positionY={'transform: translateY(120px); '}/> -->
+
+<div class="titleContainer">
+  <!-- <Bird message={'A new Font!'}/>  -->
+  <h2>
+    <div bind:this={titleDom} class="title" aria-label="Whirly Bats!">
+      <span class="char6 {$WIDTH>875 && timeStep > 0 ? 'switch' : ''}" aria-hidden="true">W</span
+      ><span class="char7 {$WIDTH>875 && timeStep > 1 ? 'switch' : ''}" style="" aria-hidden="true">h</span
+      ><span class="char8 {$WIDTH>875 && timeStep > 2 ? 'switch' : ''}" style="" aria-hidden="true">i</span
+      ><span class="char9 {$WIDTH>875 && timeStep > 3 ? 'switch' : ''}" style="" aria-hidden="true">r</span
+      ><span class="char10 {$WIDTH>875 && timeStep > 4 ? 'switch' : ''}" style="" aria-hidden="true">l</span
+      ><span class="char11 {$WIDTH>875 && timeStep > 5 ? 'switch' : ''}" style="" aria-hidden="true" >y</span
+      ><span class="char13 {$WIDTH>875 && timeStep > 6 ? 'switch' : ''}" style="" aria-hidden="true">B</span
+      ><span class="char14 {$WIDTH>875 && timeStep > 7 ? 'switch' : ''}" style="" aria-hidden="true">a</span
+      ><span class="char15 {$WIDTH>875 && timeStep > 8 ? 'switch' : ''}" style="" aria-hidden="true">t</span
+      ><span class="char16 {$WIDTH>875 && timeStep > 9 ? 'switch' : ''}" style="" aria-hidden="true">s</span
+      ><span class="char17 {$WIDTH>875 && timeStep > 10 ? '' : ''}" style="" aria-hidden="true">!</span
+      >
+    </div>
+  </h2>
+</div>
+
+<style>
+.titleContainer{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-start;
+  position:relative;
+  width:100%;
+  z-index: 1;
+}
+
+  
+  h2 {
+font-weight: normal;
+    font-size: 7vw;
+    font-variation-settings: "wght" 100, "wdth" 150, "ital" 0;
+    line-height: 1;
+    text-align: center;
+    padding: 0 0 0 0;
+    margin: 0;
+    color:var(--black);
+  }
+  span.switch{
+    font-family: 'Whirlybats';
+    margin-right: 0px;
+  }
+
+  .title span {
+    display: inline-block;
+  }
+
+  .title .char12 {
+    display: block;
+  }
+  .char6{
+  }
+  .char7{
+    color:var(--green);
+    transform: translateY(-7px);
+  }
+  .char8{
+    color:var(--blue);
+  }
+  .char9{
+    color:var(--black);
+    transform: translateY(-7px);
+  }
+  .char10{
+    color:var(--red);
+    margin-right: -27px;
+  }
+  .char11{
+    transform: translateY(-7px);
+  }
+  
+    .char12{
+
+  }
+  
+      .char13{
+    color:var(--green);
+    transform: translateY(-7px);
+  }
+  
+  .char14 {
+    color:var(--red);
+margin-right: -20px;
+}
+  
+    .char15 {
+      color: var(--green);
+  transform: translateY(-7px);
+}
+  
+    .char16 {
+  color: var(--blue);
+}
+
+  .char11 {
+/*     margin-left: -.5vw; */
+  }
+
+  .char7, .char9, .char11, .char14, .char16, .char18 {
+    /* transform: translateY(-5px); */
+  }
+
+  .char6, .char8, .char10, .char13, .char15, .char17, .char19 {
+    /* transform: translateY(5px); */
+  }
+  
+    @media screen and (max-width: 875px) {
+    .title {
+      font-size: 21vw;
+      font-family: "Whirly Birdie";
+      font-variation-settings: "wght" 80, "wdth" 50;
+      line-height: .95;
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+
+      .char10{
+    margin-right: -6px;
+  }
+    
+          .char14{
+    margin-right: -3px;
+  }
+  
+  }
+</style>

@@ -1,0 +1,23 @@
+/* fallback */
+@font-face {
+  font-family: "Whirlybats";
+  font-style:normal;
+  font-weight:400;
+  src: url("https://cdn.glitch.com/230aa42e-94e6-443c-96f9-1f7a1c45087b%2FWhirlybatsGX.ttf?v=1598059065091")
+    format("truetype"); 
+/*   should be woff2 */
+}
+
+.wb-icon{
+  font-family: 'Whirlybats';
+  font-weight: normal;
+  font-style: normal;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+}

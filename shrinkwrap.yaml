@@ -1,12 +1,15 @@
 dependencies:
   '@rollup/plugin-commonjs': 14.0.0
   '@rollup/plugin-node-resolve': 8.4.0
-  rollup: 2.21.0
+  intersection-observer: 0.11.0
+  rollup: 2.23.0
   rollup-plugin-livereload: 1.3.0
+  rollup-plugin-polyfill: 3.0.0
   rollup-plugin-svelte: 5.2.3
   rollup-plugin-terser: 6.1.0
   sirv-cli: 1.0.3
   svelte: 3.24.0
+  svelte-inview: 1.0.0
 packages:
   /@babel/code-frame/7.10.4:
     dependencies:
@@ -295,6 +298,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==
+  /intersection-observer/0.11.0:
+    dev: false
+    resolution:
+      integrity: sha512-KZArj2QVnmdud9zTpKf279m2bbGfG+4/kn16UU0NL3pTVl52ZHiJ9IRNSsnn6jaHrL9EGLFM5eWjTx2fz/+zoQ==
   /is-binary-path/2.1.0:
     dependencies:
       binary-extensions: 2.1.0
@@ -465,6 +472,12 @@ packages:
     dev: false
     resolution:
       integrity: sha512-abyqXaB21+nFHo+vJULBqfzNx6zXABC19UyvqgDfdoxR/8pFAd041GO+GIUe8ZYC2DbuMUmioh1Lvbk14YLZgw==
+  /rollup-plugin-polyfill/3.0.0:
+    dependencies:
+      magic-string: 0.25.7
+    dev: false
+    resolution:
+      integrity: sha512-LfJ1OR/wJrJdNDVNrdhVm7CgENfaNoQlFYMaQ0vlQH3zO+BMVrBMWDX9k6HVcr9gHsKbthrkiBzWRfFU9fr0hQ==
   /rollup-plugin-svelte/5.2.3:
     dependencies:
       require-relative: 0.8.7
@@ -493,7 +506,7 @@ packages:
     dev: false
     resolution:
       integrity: sha512-EEp9NhnUkwY8aif6bxgovPHMoMoNr2FulJziTndpt5H9RdwC47GSGuII9XxpSdzVGM0GWrNPHV6ie1LTNJPaLQ==
-  /rollup/2.21.0:
+  /rollup/2.23.0:
     dev: false
     engines:
       node: '>=10.0.0'
@@ -501,7 +514,7 @@ packages:
     optionalDependencies:
       fsevents: 2.1.3
     resolution:
-      integrity: sha512-BEGgy+wSzux7Ycq58pRiWEOBZaXRXTuvzl1gsm7gqmsAHxkWf9nyA5V2LN9fGSHhhDQd0/C13iRzSh4bbIpWZQ==
+      integrity: sha512-vLNmZFUGVwrnqNAJ/BvuLk1MtWzu4IuoqsH9UWK5AIdO3rt8/CSiJNvPvCIvfzrbNsqKbNzPAG1V2O4eTe2XZg==
   /sade/1.7.3:
     dependencies:
       mri: 1.1.6
@@ -585,6 +598,10 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-oRSIpR8pxT1Wr2FquTNnGet79b3BWljqOuoW/h4oBhxJ/HUbX5nX6JSruTkvXDCFMwDPvsaTTbvMLKZWSy0R5g==
+  /svelte-inview/1.0.0:
+    dev: false
+    resolution:
+      integrity: sha512-IrtFC4EHeEWB0Pum6Da1jHaLDcxUuuMfUdyOei5iTFJc0nHCsX4XRp/H+fhGFQGmKfGxV6gLpbR0JTpikVDm/A==
   /svelte/3.24.0:
     dev: false
     engines:
@@ -638,9 +655,12 @@ shrinkwrapVersion: 3
 specifiers:
   '@rollup/plugin-commonjs': ^14.0.0
   '@rollup/plugin-node-resolve': ^8.4.0
-  rollup: ^2.21.0
+  intersection-observer: ^0.11.0
+  rollup: ^2.22.2
   rollup-plugin-livereload: ^1.3.0
+  rollup-plugin-polyfill: ^3.0.0
   rollup-plugin-svelte: ^5.2.3
   rollup-plugin-terser: ^6.1.0
   sirv-cli: ^1.0.3
   svelte: ^3.24.0
+  svelte-inview: ^1.0.0

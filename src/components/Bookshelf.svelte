@@ -1,89 +1,323 @@
-<!-- see demo at http://wbook2.glitch.me/-->
+<script>
+  import { onMount } from "svelte";
+  import { fade, fly } from "svelte/transition";
+  import { WIDTH, HEIGHT } from "./stores.js";
+  import { cubicInOut } from "svelte/easing";
+  import { constrain, randomDiffArr, isEqual, fadeScale } from "./helpers.js";
+  import { smallwords1, smallwords2 } from "./config.js";
+
+  let bookModel = [
+    //sample fields
+    {
+      widthMult: 0.5, //We store a random decimal to be used later in calculating final random width,height,fontsize
+      heightMult: 0.5,
+      bgColor: "#ffffff",
+      words: ["hello", "world"],
+      fontMult: 0.4,
+      bookline: false,
+      whirlybat: false,
+      smalltitle: false,
+      varSettings: "'wght' 80, 'wdth' 50, 'ital' 0",
+    },
+  ];
+  let bookModelNew = ["", "", "", "", "", "", "", "", ""];
+
+  let bookcolors = [
+    "var(--red)",
+    "var(--lightnavy)",
+    "var(--lightnavy)",
+    "var(--sun)",
+    "var(--forest)",
+    "var(--green)",
+    "var(--navy)",
+  ];
+
+  let shelfDom = null;
+  var sheight = 0;
+  var swidth = 0;
+  let bookmax = 9;
+  var booknum = 9;
+  var bwidth = swidth / booknum;
+  var bwidthMin = 0.6; //make randomness between 60% and 100% of book width
+  var bheightMin = 0.75; //make randomness between 76% and 100% of book width
+  var fontmin = 22;
+  var fontmax = 25;
+  let containerDom = null;
+
+  $: {
+    if (shelfDom) {
+      swidth = shelfDom.offsetWidth;
+      sheight = shelfDom.offsetHeight;
+      console.log(swidth, sheight);
+    }
+
+    if ($WIDTH < 1200) {
+      booknum = 6;
+      bwidth = swidth / booknum;
+      fontmin = 15;
+      fontmax = 15;
+    } else {
+      booknum = 9;
+      bwidth = swidth / booknum;
+      fontmin = 22;
+      fontmax = 30;
+    }
+  }
+
+  const createBookModel = () => {
+    let newBookModel = [];
+
+    //Pre generate a random non repeting array
+    let randomBookcolors = randomDiffArr(bookcolors, bookmax);
+    let randomwords1 = randomDiffArr(smallwords1, bookmax, false);
+    let randomwords2 = randomDiffArr(smallwords2, bookmax, false);
+
+    //Loop to specify generate book specs
+    for (let i = 0; i < bookmax; i++) {
+      let bookcolor = randomBookcolors[i];
+      let word1 = randomwords1[i];
+      let word2 = randomwords2[i];
+      let stringLength = word1.length + word2.length;
+      let varSettings = null;
+      let smalltitle = false;
+      let bookline = false;
+      let whirlybat = false;
+
+      //switch statement for variable settings
+      switch (stringLength) {
+        case 12:
+          varSettings = "'wght' 70, 'wdth' 50, 'ital' 0";
+          bookline = true;
+          break;
+        case 11:
+          varSettings = "'wght' 80, 'wdth' 90, 'ital' 10";
+          bookline = true;
+          break;
+        case 10:
+          varSettings = "'wght' 80, 'wdth' 50, 'ital' 0";
+          bookline = true;
+          break;
+        case 9:
+          varSettings = "'wght' 90, 'wdth' 120, 'ital' 0";
+          bookline = true;
+          break;
+        case 8:
+          varSettings = "'wght' 100, 'wdth' 130, 'ital' 0";
+          bookline = true;
+          break;
+        case 7:
+          varSettings = "'wght' 80, 'wdth' 100, 'ital' 0";
+          break;
+        case 6:
+          varSettings = "'wght' 100, 'wdth' 100, 'ital' 0";
+          break;
+        case 5:
+          varSettings = "'wght' 60, 'wdth' 120, 'ital' 0";
+          break;
+        case 4:
+          varSettings = "'wght' 80, 'wdth' 50, 'ital' 0";
+          break;
+        case 3:
+          smalltitle = true;
+          break;
+        case 2:
+          break;
+        case 1:
+          break;
+        default:
+          //This setting if length is greater than 12
+          varSettings = "'wght' 80, 'wdth' 50, 'ital' 0";
+          break;
+      }
+
+      if (stringLength < 9) {
+        whirlybat = true;
+      }
+
+      newBookModel.push({
+        words: [word1, word2],
+        bgColor: bookcolor,
+        bookline: bookline,
+        whirlybat: whirlybat,
+        smalltitle: smalltitle,
+        varSettings: varSettings,
+        widthMult: Math.random(),
+        heightMult: Math.random(),
+        fontMult: Math.random(),
+      });
+    }
+
+    console.log(newBookModel);
+    return newBookModel;
+  };
+
+  const handleClick = () => {
+    console.log("click");
+    containerDom.classList.remove("bounce");
+    void containerDom.offsetWidth;
+    containerDom.classList.add("bounce");
+    if (isEqual(bookModel, bookModelNew)) {
+      bookModelNew = createBookModel();
+    }
+  };
+
+  onMount(async () => {
+    bookModelNew = createBookModel();
+    bookModel = bookModelNew;
+  });
+</script>
+
+<container
+  on:click="{(e) => {
+    e.preventDefault();
+    handleClick();
+  }}">
+  <section bind:this="{containerDom}" class="section bounce">
+
+    <div class="shelf" bind:this="{shelfDom}" bind:offsetWidth="{swidth}">
+
+      {#each bookModel as book, i}
+        {#if isEqual(bookModel[i], bookModelNew[i])}
+          <div
+            class="book {booknum >= i + 1 ? '' : 'hide'}
+            {booknum === i + 1 ? 'rotated' : ''}"
+            in:fly="{{ delay: 50 * (bookModel.length - 4), duration: 300, y: -20, easing: cubicInOut }}"
+            out:fade="{{ duration: 150, easing: cubicInOut, delay: 50 * i }}"
+            on:outroend="{() => (bookModel[i] = bookModelNew[i])}"
+            style="width:{bwidth * bwidthMin + bwidth * (1 - bwidthMin) * book.widthMult}px;
+            height:{sheight * bheightMin + sheight * (1 - bheightMin) * book.heightMult}px;
+            background:{book.bgColor}">
+            <div
+              class="booktitle {book.smalltitle ? 'smalltitle' : ''}"
+              style="font-size:{fontmin + (fontmax - fontmin) * book.fontMult}px;
+              font-variation-settings: {book.varSettings}">
+              {book.words[0]} {book.words[1]}
+            </div>
+            {#if book.bookline}
+              <div class="bookline">________</div>
+            {/if}
+            {#if book.whirlybat}
+              <div class="whirlybatbook"></div>
+            {/if}
+          </div>
+        {/if}
+      {/each}
+
+    </div>
+
+    <!-- <div class="{$WIDTH > 600 ? 'radio' : 'plant'}">
+    {$WIDTH > 600 ? 'Z' : 'p'}
+  </div> -->
+
+  </section>
+</container>
 
 <style>
-
-.section {
-margin: auto;
-    max-width: 850px;
+  @keyframes -global-bounce {
+    0% {
+      transform: translate3d(0px, 0px, 0px);
+    }
+    50% {
+      transform: translate3d(0px, 10px, 0px);
+    }
+    100% {
+      transform: translate3d(0px, 0px, 0px);
+    }
+  }
+  container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  container:hover {
+    cursor: pointer;
+  }
+  section {
+    margin: auto;
+    width: calc(100% - var(--padding));
+    /*     max-width: 850px; */
     background-color: transparent;
     color: black;
     box-sizing: border-box;
     border-bottom: 10px solid var(--wood);
     display: flex;
     align-items: flex-end;
-}
+    transition: 0.2s transform;
+    position: relative;
+  }
 
-.section h2 {
-margin: 0;
-font-variation-settings: "wght" 70, "wdth" 120, "ital" 0;
-margin-bottom: 50px;
-font-size: 15px;
-}
+  .bounce {
+    animation: bounce 0.3s ease-out 1;
+  }
 
-.shelf {
--webkit-font-smoothing: antialiased;
+  .shelf {
+    -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-  width: 80%;
+    width: calc(100% - 40px);
     height: 380px;
     display: flex;
     align-items: flex-end;
     cursor: pointer;
-}
-
-.radio {
-font-family: "Whirlybats";
-    font-size: 250px;
+  }
+  .bounce .radio,
+  .bounce .plant {
+    animation: basicAnimation 1s ease-out 1;
+  }
+  .radio {
+    font-family: "Whirlybats";
+    font-size: 200px;
     line-height: 0.85;
-    color: var(--blue);
-}
+    color: var(--white);
+    display: none;
+  }
 
-.bookline {
-letter-spacing: -3px;
+  .bookline {
+    letter-spacing: -3px;
     position: absolute;
     top: 0;
     font-variation-settings: "wght" 50, "wdth" 150, "ital" 0;
     text-shadow: 0px 5px 0px;
+  }
 
-}
+  .book {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    margin-right: 2px;
+    margin-bottom: 2px;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+    padding-top: 35px;
+    box-sizing: border-box;
+    transition: 0.2s;
+    transition-property: transform;
+    color: var(--white);
+  }
 
-.book {
-  display: flex;
-  align-items: baseline;
-  justify-content: center;
-  margin-right: 2px;
-  margin-bottom: 2px;
-  text-align: center;
-  overflow: hidden;
-  position: relative;
-  padding-top: 35px;
-  box-sizing: border-box;
-  transition: .2s;
-  transition-property: transform;
-  color: var(--white);
-}
+  .book:hover {
+    transform: rotate(-2deg);
+  }
 
-.book:hover {
-transform: rotate(-2deg)
-}
+  .book:active {
+    transform: translateY(10px);
+  }
 
-.book:active {
-transform: translateY(10px);
+  .hide {
+    display: none;
+  }
 
-}
+  .shelf .book.rotated {
+    transform: rotate(-7deg);
+    margin-left: 18px;
+    margin-bottom: 4px;
+  }
 
-.hide {
-  opacity: 0;
-  transform: translateY(-30px);
-}
-
-.rotatedbook {
-  transform: rotate(-7deg);
-  margin-left: 18px;
-  margin-bottom: 4px;
-}
-
-.whirlybatbook {
-font-family: "Whirlybats";
+  .whirlybatbook {
+    font-family: "Whirlybats";
     font-size: 30px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -93,441 +327,41 @@ font-family: "Whirlybats";
     height: 7px;
     border-radius: 50%;
     background-color: currentColor;
-}
+  }
 
-.booktitle {
-  font-family: "Whirly Birdie";
-  writing-mode: vertical-rl;
-  text-orientation: mixed;
-  font-variation-settings: "wght" 50, "wdth" 60.06, "ital" 0;
-  font-size: 40px;
-}
+  .booktitle {
+    font-family: "Whirly Birdie";
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    font-variation-settings: "wght" 50, "wdth" 60.06, "ital" 0;
+    font-size: 40px;
+    color: var(--white);
+  }
 
-.smalltitle {
-    font-size: 25px!important;
+  .smalltitle {
+    font-size: 25px !important;
     font-variation-settings: "wght" 55, "wdth" 50, "ital" 0;
     writing-mode: horizontal-tb;
     margin-left: 0;
     margin-top: -5px;
-}
+  }
 
-  .plant {
-display: none; 
-}
+  @media screen and (max-width: 600px) {
+    .plant {
+      display: none;
+      font-family: "Whirlybats";
+      font-size: 40vw;
+      line-height: 0.85;
+      color: var(--green);
+    }
 
-@media screen and (max-width: 600px) {
-  .radio {
-display: none; 
-}
-  
-  .plant {
-    display: block;
-font-family: "Whirlybats";
-    font-size: 40vw;
-    line-height: 0.85;
-    color: var(--green);
-}
-  
-  
-  .shelf {
-height: 250px;
-    width: 100%;
-}
-  
-  .smalltitle {
-    font-size: 14px!important;
-}
-}
+    .shelf {
+      height: 250px;
+      width: 100%;
+    }
+
+    .smalltitle {
+      font-size: 14px !important;
+    }
+  }
 </style>
-
-    
-<div class="section">
-   <div class="shelf">
-    </div>
-  <div class="radio">
-    Z
-  </div>
-    <div class="plant">
-    p
-  </div>
- </div>
-<br>
-
-
-    <script>
-    //https://stackoverflow.com/a/11944765
-  //using this to get random items form arrays that don't repeat
-  
-  Array.prototype.randomDiffElement = function(last) {
-    if (this.length == 0) {
-      return;
-    } else if (this.length == 1) {
-      return this[0];
-    } else {
-      var num = 0;
-      do {
-        num = Math.floor(Math.random() * this.length);
-      } while (this[num] == last);
-      return this[num];
-    }
-  };
-
-function randomrange(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-</script>
-    
-    <script>
-        var bookcolors = [
-    "var(--red)",
-    "var(--blue)", "var(--blue)",
-    "var(--sun)",
-    "var(--forest)",
-    "var(--green)",
-     "var(--navy)"
-  ];
-
-  var lightcolors = [
-    "var(--sun)",
-    "var(--white)",
-    "var(--lightgreen)"
-  ];
-
- var darkcolors = [
-    "var(--black)",
-    "var(--red)",
-    "var(--blue)",
-    "var(--green)",
-    "var(--wood)"
-  ];
-
-  var smallwords1 = [
-  "The",
-  "Of",
-  "On",
-  "Deep",
-  "To",
-  "Onward",
-  "Exact",
-  "Haunted",
-  "Brave",
-  "Small",
-  "Quick",
-  "True",
-  "Dream",
-  "London",
-  "New York",
-  "Paris",
-  "Morning",
-  "New",
-  "Busy",
-  "My",
-  "Atomic",
-  "Swirl",
-  "On the",
-  "Tour of",
-  "Visiting",
-  "Visit",
-  "Tech",
-  "Liminal",
-  "Old",
-  "Port",
-  "Lovely",
-  "Fantastic",
-  "No",
-  "Midnight",
-  "Early",
-  "Silver",
-  "Cute",
-  "Perfect",
-  "Grumpy",
-  "Rainy",
-  "Cosmic",
-  "Hudson",
-  "Dear",
-  "Super",
-  "Hot",
-  "","","",""
-];
-
-var smallwords2 = [
-  "Space",
-  "Lakes",
-  "Thought",
-  "Blue",
-  "Cube",
-  "Cats",
-  "Bugs",
-  "Lights",
-  "Walks",
-  "Stars",
-  "Lines",
-  "Parks",
-  "Night",
-  "Cave",
-  "Glow",
-  "Ocean",
-  "Moon",
-  "Life",
-  "Violet",
-  "Wing",
-  "Eyes",
-  "Airway",
-  "Door",
-  "Dove",
-  "Bat",
-  "Type",
-  "Cup",
-  "Art",
-  "Place",
-  "Why?",
-  "Where",
-  "Fog",
-  "Highway",
-  "Sea",
-  "Pearl",
-  "Letter",
-  "Trail",
-  "Gift",
-  "Whale",
-  "Metro",
-  "Maps",
-  "Moth",
-  "Fire",
-  "Fortune",
-  "Cruise",
-  "Cold",
-  "Ship",
-  "Hall",
-  "Rome",
-  "Array",
-  "Angel",
-  "Train",
-  "Camera",
-  "Bike",
-  "Scooter",
-  "Portal",
-  "Swirl",
-  "Cloud",
-  "Bliss",
-  "Berlin",
-  "Parade",
-  "Piano",
-  "Window",
-  "River",
-  "Houses",
-  "Hill",
-  "Ticket",
-  "Dot",
-  "Chime",
-  "Glass",
-  "Attic",
-  "Ostrich",
-  "Joust",
-  "Wish",
-  "Zinc",
-  "Wave",
-  "Sounds",
-  "Mix",
-  "Sun",
-  "Fox",
-  "Awe",
-  "Emu",
-  "Hop",
-  "Key",
-  "Owl"
-];
-
-</script>
-    <script>
-      
-  var sheight = document.getElementsByClassName("shelf")[0].offsetHeight;
-  var swidth = document.getElementsByClassName("shelf")[0].offsetWidth;
-  var booknum = 9;
-  var bwidth = swidth / booknum;
-  var fontmin = 22
-  var fontmax = 30
-
-//this is basically a media query to change the number of books on mobile
-  
-  function myFunction(x) {
-  
-   if (x.matches) { // If media query matches
-      booknum = 6
-      bwidth = swidth / booknum
-      fontmin = 15
-      fontmax = 15
-  }
-  
-}
-  
-//call the media query 
-var x = window.matchMedia("(max-width: 700px)")
-myFunction(x) 
-x.addListener(myFunction) 
-  
-  
-
-  function randombooks() {
-    
-    //clear the shelf
-    document.getElementsByClassName("shelf")[0].innerHTML = ""
-
-    var i = 0;
-
-    for (i = 0; i < booknum; i++) {
-      //using the array prototype from before
-      var randombookcolor = bookcolors.randomDiffElement(randombookcolor);
-
-      //random number within range
-      var randomheight =
-        Math.floor(Math.random() * (sheight - (sheight - 50) + 1)) +
-        (sheight - 50);
-
-      var randomwidth =
-        Math.floor(Math.random() * (bwidth - (bwidth - 20) + 1)) +
-        (bwidth - 20);
-
-      //book title mashup
-      var randomword1 = smallwords1.randomDiffElement(smallwords1);
-      var randomword2 = smallwords2.randomDiffElement(smallwords2);
-
-      document.getElementsByClassName("shelf")[0].insertAdjacentHTML(
-        'beforeend',
-        "<div class='book' style='width:" +
-          randomwidth +
-          "px; height:" +
-          randomheight +
-          "px; background-color:" +
-          randombookcolor +
-          "'>" +
-          "<div class='booktitle'>" +
-          randomword1 +
-          " " +
-          randomword2 +
-          "</div></div>"
-      );
-    }
-
-    
-    var book = document.getElementsByClassName('booktitle');
-for (var i = 0; i < book.length; i++) {
-  
-      var randomsize = randomrange(fontmin, fontmax);
-      var randomwidth = randomrange(50, 70);
-    
-  console.log(book[i].innerText.length)
-  
-  
-  book[i].style.fontSize = randomsize + "px"
-  book[i].style.color = "var(--white)"
-
-  
-   if (book[i].innerText.length > 13) {
-       // book[i].style.color = 'purple';
-       book[i].style.fontVariationSettings = "'wght' 80, 'wdth' 50, 'ital' 0";
-      }
-
-    
-       if (book[i].innerText.length == 12) {
-       // book[i].style.color = 'pink';
-       book[i].style.fontVariationSettings = "'wght' 70, 'wdth' 50, 'ital' 0";
-      }
-  
-         if (book[i].innerText.length == 11) {
-       // book[i].style.color = 'pink';
-       book[i].style.fontVariationSettings = "'wght' 80, 'wdth' 90, 'ital' 10";
-      }
-  
-           if (book[i].innerText.length == 10) {
-       // book[i].style.color = 'pink';
-       book[i].style.fontVariationSettings = "'wght' 80, 'wdth' 50, 'ital' 0";
-      }
-  
-             if (book[i].innerText.length == 9) {
-       // book[i].style.color = 'pink';
-       book[i].style.fontVariationSettings = "'wght' 90, 'wdth' 120, 'ital' 0";
-      }
-  
-               if (book[i].innerText.length == 8) {
-       // book[i].style.color = 'pink';
-       book[i].style.fontVariationSettings = "'wght' 100, 'wdth' 130, 'ital' 0";
-      }
-  
-                 if (book[i].innerText.length == 7) {
-       // book[i].style.color = 'pink';
-       book[i].style.fontVariationSettings = "'wght' 80, 'wdth' 100, 'ital' 0";
-      }
-  
-                   if (book[i].innerText.length == 6) {
-       // book[i].style.color = 'pink';
-       book[i].style.fontVariationSettings = "'wght' 100, 'wdth' 100, 'ital' 0";
-      }
-  
-                     if (book[i].innerText.length == 5) {
-       // book[i].style.color = 'pink';
-       book[i].style.fontVariationSettings = "'wght' 60, 'wdth' 120, 'ital' 0";
-      }
-
-                       if (book[i].innerText.length == 4) {
-book[i].classList.add("smalltitle")
-      }
-  
-        if (book[i].innerText.length < 9) {
-        book[i]
-          .parentElement
-          .insertAdjacentHTML(
-          "beforeend",
-            "<div style='" +
-              "' class='whirlybatbook'></div>"
-          );
-      }
-  
-          if (book[i].innerText.length < 7) {
-        book[i]
-          .parentElement
-          .insertAdjacentHTML(
-          "beforeend",
-"<div style='" +
-              "' class='bookline'>" +
-              "_________" +
-              "</div>"
-          );
-      }
-
-
-}
-    
-    
-    //looking at the lengths of book titles, and changing the font based on that
-
-document.querySelectorAll(".book:last-child")[0].classList.add("rotatedbook")
-    
-  }
-
-  randombooks();
-
-//the wave effect I'm not sure how to recreate in plain javascript
-
-//   $(".shelf").click(function() {
-//     randombooks();
-
-
-//     //hide books when they are created
-//     $(".book").addClass("hide");
-
-//     //delay removing hide for the wave effect
-//     $(".book").each(function(i) {
-//       var row = $(this);
-//       setTimeout(function() {
-//         row.removeClass("hide");
-//       }, 70 * i);
-//     });
-//   });
-
-document.querySelector(".shelf").addEventListener("click", (e) => { 
-randombooks()
-});
-  
-
-</script>

@@ -1,5 +1,8 @@
 import svelte from 'rollup-plugin-svelte';
 import resolve from '@rollup/plugin-node-resolve';
+import polyfill from 'rollup-plugin-polyfill';
+// const intersectionObserver = require('intersection-observer');
+
 import commonjs from '@rollup/plugin-commonjs';
 import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
@@ -24,7 +27,7 @@ export default {
 				css.write('docs/build/bundle.css');
 			}
 		}),
-
+    polyfill(["intersection-observer"]),
 		// If you have external dependencies installed from
 		// npm, you'll most likely need these plugins. In
 		// some cases you'll need additional configuration —
