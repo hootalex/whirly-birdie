@@ -3,11 +3,11 @@
   export let positionY = "top:0px";
   export let signText;
   export let signCSS;
+  export let windows;
   export let buildingSize = "widetower";
 </script>
 
 <div class="towercontainer {buildingSize}" style="{positionX};{positionY}">
-
   <div class="towersign" style="{signText ? signCSS : 'display:none'}">
     {@html signText}
     <!--Can be HTML Tags-->
@@ -15,15 +15,16 @@
   <div class="signbeam" style="{signText ? '' : 'display:none'}">
     <img
       src="https://cdn.glitch.com/deae9ec6-f4ee-4950-863b-b40470e94a3c%2Fstand2-01.svg?v=1583560283121"
-      alt="A Sturdy Beam" />
+      alt="A Sturdy Beam"
+    />
     <hr />
     <img
       src="https://cdn.glitch.com/deae9ec6-f4ee-4950-863b-b40470e94a3c%2Fstand2-01.svg?v=1583560283121"
-      alt="A Sturdy Beam" />
+      alt="A Sturdy Beam"
+    />
   </div>
 
-  <div class="tower"></div>
-
+  <div class="tower">{windows}</div>
 </div>
 
 <style>
@@ -76,7 +77,7 @@ windows added with css content to make responsiveness easier */
     padding-bottom: 50px;
   }
 
-  .narrowtower .tower:after {
+  /*   .narrowtower .tower:after {
     content: "¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬";
   }
 
@@ -90,7 +91,7 @@ windows added with css content to make responsiveness easier */
 
   .shorttower .tower:after {
     content: "¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬ ¬";
-  }
+  } */
 
   .towersign {
     position: relative;
@@ -106,6 +107,10 @@ windows added with css content to make responsiveness easier */
     line-height: 0.8;
     padding: 12px;
     box-sizing: border-box;
+  }
+
+  .widetower {
+    width: 300px;
   }
 
   @media screen and (max-width: 875px) {

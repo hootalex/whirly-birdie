@@ -1,5 +1,4 @@
 <script>
-
 </script>
 
 <svg
@@ -11,8 +10,8 @@
   y="0px"
   viewbox="0 0 149.9 223.5"
   style="enable-background:new 0 0 149.9 223.5;"
-  xml:space="preserve">
-  <style type="text/css">
+  xml:space="preserve"
+><style type="text/css">
     .lt0 {
       fill: var(--white);
     }

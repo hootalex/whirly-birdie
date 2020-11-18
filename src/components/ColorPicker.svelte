@@ -1,5 +1,6 @@
 <script>
   import { typeColor } from "./stores.js";
+  import { setCursor_Pointer, setCursor_Default } from "./_Cursor.svelte";
   let selectedColor = null;
   export let mobileColor = "#000000";
   export let themeColor = typeColor;
@@ -7,7 +8,6 @@
 
   const handleClick = (e) => {
     const themeID = e.target.getAttribute("color");
-    console.log(themeID);
     if (themeID !== $themeColor.selected) {
       switch (themeID) {
         case "invert":
@@ -23,7 +23,7 @@
         case "red":
           themeColor.set({
             selected: themeID,
-            type: "var(--sun)",
+            type: "var(--offwhite)",
             type2: "var(--red)",
             bg: "var(--red)",
             bg2: "var(--offwhite)",
@@ -33,7 +33,7 @@
         case "blue":
           themeColor.set({
             selected: themeID,
-            type: "var(--blue)",
+            type: "#84c1e2",
             type2: "var(--red)",
             bg: "var(--navy)",
             bg2: "var(--sun)",
@@ -80,29 +80,44 @@
   <div class="colorpicker {sticky ? 'sticky' : ''}">
     <div
       on:click="{handleClick}"
+      on:mouseenter="{setCursor_Pointer}"
+      on:mouseleave="{setCursor_Default}"
       color="invert"
       class="{$themeColor.selected === 'invert' ? 'selected' : ''}"
-      style="background-color: var(--black)"></div>
+      style="background-color: var(--black)"
+    ></div>
     <div
       class="{$themeColor.selected === 'red' ? 'selected' : ''}"
       on:click="{handleClick}"
+      on:mouseenter="{setCursor_Pointer}"
+      on:mouseleave="{setCursor_Default}"
       color="red"
-      style="background-color: var(--red)"></div>
+      style="background-color: var(--red)"
+    ></div>
     <div
       class="{$themeColor.selected === 'blue' ? 'selected' : ''}"
       on:click="{handleClick}"
+      on:mouseenter="{setCursor_Pointer}"
+      on:mouseleave="{setCursor_Default}"
       color="blue"
-      style="background-color: var(--blue)"></div>
+      style="background-color: var(--blue)"
+    ></div>
     <div
       class="{$themeColor.selected === 'sun' ? 'selected' : ''}"
       on:click="{handleClick}"
+      on:mouseenter="{setCursor_Pointer}"
+      on:mouseleave="{setCursor_Default}"
       color="sun"
-      style="background-color: var(--sun)"></div>
+      style="background-color: var(--sun)"
+    ></div>
     <div
       class="{$themeColor.selected === 'green' ? 'selected' : ''}"
       on:click="{handleClick}"
+      on:mouseenter="{setCursor_Pointer}"
+      on:mouseleave="{setCursor_Default}"
       color="green"
-      style="background-color: var(--green)"></div>
+      style="background-color: var(--green)"
+    ></div>
   </div>
 </container>
 
@@ -120,15 +135,15 @@
     margin-bottom: 30px;
     user-select: none;
     z-index: 990;
-    background: rgb(240 238 238);
+    background: rgb(255, 255, 255);
     width: max-content;
     display: flex;
     flex-direction: column;
     padding: 8px;
     border-left: 3px solid #dbdbdb;
     pointer-events: all;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
   }
 
   .sticky {
@@ -142,7 +157,7 @@
     width: 20px;
     border-radius: 50%;
     margin: 8px;
-    cursor: pointer;
+    cursor: none;
     border: 4px solid transparent;
     position: relative;
   }
@@ -172,7 +187,7 @@
     }
     .colorpicker {
       border: none;
-      border-bottom: 3px solid #dbdbdb;
+      border-left: 3px solid #dbdbdb;
     }
   }
   @media screen and (max-width: 750px) {
@@ -180,16 +195,21 @@
       width: 100%;
       right: 0;
       top: 0;
+      display: flex;
+      justify-content: center;
+      margin: auto;
     }
     .colorpicker {
-      display: inline-block;
-      right: 0;
-      width: 100%;
-      text-align: center;
-      padding: 8px 0 8px 0;
-      top: 0;
       background: var(--bg);
-      border-bottom: 0;
+      border: none;
+      display: inline-block;
+      width: max-content;
+      height: max-content;
+      text-align: center;
+      top: 8px;
+      margin-top: 24px;
+      border-radius: 50px;
+      backdrop-filter: blur(12px);
     }
     .colorpicker:before {
       content: "";
@@ -198,12 +218,13 @@
       left: 0;
       width: 100%;
       height: 100%;
+      border-radius: 50px;
       background: var(--type);
       opacity: calc(var(--alpha) * 1.75);
     }
     .colorpicker div {
       display: inline-block;
-      margin:4px;
+      margin: 4px;
     }
     .colorpicker div.selected {
       /* border-color:white; */

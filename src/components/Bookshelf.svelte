@@ -1,9 +1,14 @@
 <script>
   import { onMount } from "svelte";
   import { fade, fly } from "svelte/transition";
-  import { WIDTH, HEIGHT } from "./stores.js";
+  import { WIDTH, HEIGHT, cursor } from "./stores.js";
   import { cubicInOut } from "svelte/easing";
   import { constrain, randomDiffArr, isEqual, fadeScale } from "./helpers.js";
+  import {
+    setCursor_Random,
+    setCursor_Anim,
+    setCursor_Default,
+  } from "./_Cursor.svelte";
   import { smallwords1, smallwords2 } from "./config.js";
 
   let bookModel = [
@@ -23,13 +28,13 @@
   let bookModelNew = ["", "", "", "", "", "", "", "", ""];
 
   let bookcolors = [
-    "var(--red)",
-    "var(--lightnavy)",
-    "var(--lightnavy)",
-    "var(--sun)",
-    "var(--forest)",
-    "var(--green)",
-    "var(--navy)",
+    "var(--redX)",
+    "var(--lightnavyX)",
+    "var(--lightnavyX)",
+    "var(--sunX)",
+    "var(--forestX)",
+    "var(--greenX)",
+    "var(--navyX)",
   ];
 
   let shelfDom = null;
@@ -48,7 +53,6 @@
     if (shelfDom) {
       swidth = shelfDom.offsetWidth;
       sheight = shelfDom.offsetHeight;
-      console.log(swidth, sheight);
     }
 
     if ($WIDTH < 1200) {
@@ -147,15 +151,14 @@
       });
     }
 
-    console.log(newBookModel);
     return newBookModel;
   };
 
   const handleClick = () => {
-    console.log("click");
     containerDom.classList.remove("bounce");
     void containerDom.offsetWidth;
     containerDom.classList.add("bounce");
+    setCursor_Anim();
     if (isEqual(bookModel, bookModelNew)) {
       bookModelNew = createBookModel();
     }
@@ -168,14 +171,15 @@
 </script>
 
 <container
+  on:mouseenter="{setCursor_Random}"
+  on:mouseleave="{setCursor_Default}"
   on:click="{(e) => {
     e.preventDefault();
     handleClick();
-  }}">
+  }}"
+>
   <section bind:this="{containerDom}" class="section bounce">
-
     <div class="shelf" bind:this="{shelfDom}" bind:offsetWidth="{swidth}">
-
       {#each bookModel as book, i}
         {#if isEqual(bookModel[i], bookModelNew[i])}
           <div
@@ -186,12 +190,15 @@
             on:outroend="{() => (bookModel[i] = bookModelNew[i])}"
             style="width:{bwidth * bwidthMin + bwidth * (1 - bwidthMin) * book.widthMult}px;
             height:{sheight * bheightMin + sheight * (1 - bheightMin) * book.heightMult}px;
-            background:{book.bgColor}">
+            background:{book.bgColor}"
+          >
             <div
               class="booktitle {book.smalltitle ? 'smalltitle' : ''}"
               style="font-size:{fontmin + (fontmax - fontmin) * book.fontMult}px;
-              font-variation-settings: {book.varSettings}">
-              {book.words[0]} {book.words[1]}
+              font-variation-settings: {book.varSettings}"
+            >
+              {book.words[0]}
+              {book.words[1]}
             </div>
             {#if book.bookline}
               <div class="bookline">________</div>
@@ -202,13 +209,7 @@
           </div>
         {/if}
       {/each}
-
     </div>
-
-    <!-- <div class="{$WIDTH > 600 ? 'radio' : 'plant'}">
-    {$WIDTH > 600 ? 'Z' : 'p'}
-  </div> -->
-
   </section>
 </container>
 
@@ -233,7 +234,7 @@
     justify-content: center;
   }
   container:hover {
-    cursor: pointer;
+    cursor: none;
   }
   section {
     margin: auto;
@@ -242,7 +243,7 @@
     background-color: transparent;
     color: black;
     box-sizing: border-box;
-    border-bottom: 10px solid var(--wood);
+    border-bottom: 10px solid var(--woodX);
     display: flex;
     align-items: flex-end;
     transition: 0.2s transform;
@@ -260,18 +261,7 @@
     height: 380px;
     display: flex;
     align-items: flex-end;
-    cursor: pointer;
-  }
-  .bounce .radio,
-  .bounce .plant {
-    animation: basicAnimation 1s ease-out 1;
-  }
-  .radio {
-    font-family: "Whirlybats";
-    font-size: 200px;
-    line-height: 0.85;
-    color: var(--white);
-    display: none;
+    cursor: none;
   }
 
   .bookline {
@@ -347,14 +337,6 @@
   }
 
   @media screen and (max-width: 600px) {
-    .plant {
-      display: none;
-      font-family: "Whirlybats";
-      font-size: 40vw;
-      line-height: 0.85;
-      color: var(--green);
-    }
-
     .shelf {
       height: 250px;
       width: 100%;

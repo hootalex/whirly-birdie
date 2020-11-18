@@ -2,6 +2,11 @@
   import ColorPicker from "./ColorPicker.svelte";
   import Toggle from "./UI/toggle.svelte";
   import { glyphColor } from "./stores.js";
+  import {
+    setCursor_Pointer,
+    setCursor_Default,
+    setCursor_Edit,
+  } from "./_Cursor.svelte";
 
   let isTyping = false;
   let typeArea = null;
@@ -45,7 +50,6 @@
     savedKey = currentKey;
 
     typeArea.innerHTML = currentKey;
-    // console.log(currentKey)
   };
 
   const handleCapKey = (event) => {
@@ -55,7 +59,6 @@
     } else {
       symlock = !symlock;
     }
-    console.log({ "sym:": symlock, num: numlock, cap: uppercase }, savedKey);
   };
 
   const handleNumKey = (event) => {
@@ -66,11 +69,9 @@
       symlock = false;
     } else {
     }
-    console.log({ "sym:": symlock, num: numlock, cap: uppercase }, savedKey);
   };
 
   const loseFocus = () => {
-    console.log("lostfocus");
     if (typeArea.innerHTML === "") {
       isTyping = false;
       typeArea.innerHTML = savedKey;
@@ -79,42 +80,29 @@
 </script>
 
 <div class="infobox">
+  <p class="dropillo">O</p>
   <p>
-    <span class="dropillo">O</span>
-    <span style="text-transform: uppercase; letter-spacing: 2px; font-family: 'Nicholson Beta Bold'">
+    <span
+      style="text-transform: uppercase; letter-spacing: 2px; font-family: 'Whirly Birdie'; font-variation-settings: 'wght' 70, 'wdth' 150, 'ital' 0;"
+    >
       Whirlybats
     </span>
-    is a dingbat font with a twist. Instead of using variable font technology to
-    squish and squash type, Whirlybats uses it to animate its 150+ glyphs. Try it below! ↓
+    <span style="opacity:.5">is a dingbat font with a twist. Instead of using
+      variable font technology to squish and squash type, Whirlybats uses it to
+      animate its 200+ glyphs.</span>
+    Try it below! ↓
   </p>
 </div>
 <section
-  style="--type:{$glyphColor.type};--bg:{$glyphColor.bg};--type2:{$glyphColor.type2};--bg2:{$glyphColor.bg2};--alpha:{$glyphColor.alpha}">
-
+  style="--type:{$glyphColor.type};--bg:{$glyphColor.bg};--type2:{$glyphColor.type2};--bg2:{$glyphColor.bg2};--alpha:{$glyphColor.alpha}"
+>
   <ColorPicker
     themeColor="{glyphColor}"
     sticky="true"
-    mobileColor="{'#25417a'}" />
+    mobileColor="{'#25417a'}"
+  />
 
   <container class="interactive">
-<!--     <div class="controls">
-      <Toggle bind:value="{linearAnim}" />
-      <p>{linearAnim ? 'Linear' : 'Eased'}</p>
-      <p>G - Globe</p>
-      <svg
-        width="50"
-        height="13"
-        viewBox="0 0 50 13"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg">
-        <path
-          d="M15.1215 3.85465C20.7446 6.95349 24.9999 13 24.9999 13C24.9999 13
-          29.2554 6.80233 34.8785 3.85465C40.5015 0.906979 50 2.86102e-06 50
-          2.86102e-06L-1.1365e-06 5.32481e-06C-1.1365e-06 5.32481e-06 9.49844
-          0.755819 15.1215 3.85465Z"
-          fill="{'var(--type)'}"></path>
-      </svg>
-    </div> -->
     <div class="display">
       <div class="featured {isTyping ? 'typing' : ''}">
         <p
@@ -124,9 +112,12 @@
             e.preventDefault();
             isTyping = true;
           }}"
+          on:mouseenter="{setCursor_Edit}"
+          on:mouseleave="{setCursor_Default}"
           spellcheck="false"
           data-text="{savedKey}"
-          contenteditable="true">
+          contenteditable="true"
+        >
           g
         </p>
       </div>
@@ -138,7 +129,10 @@
             <button
               class="cap {uppercase ? 'selected' : ''}
               {numlock ? 'numlock' : ''}"
-              on:click="{handleCapKey}">
+              on:click="{handleCapKey}"
+              on:mouseenter="{setCursor_Pointer}"
+              on:mouseleave="{setCursor_Default}"
+            >
               <p class="">
                 {numlock && !symlock ? '#+=' : numlock && symlock ? '123' : 'S'}
               </p>
@@ -150,13 +144,11 @@
               on:click="{(e) => {
                 handleKeydown(e, i, j);
               }}"
-              class="{
-                  !uppercase && !numlock && savedKey === keyOrder[i].default.charAt(j) ? 'selected' 
-                  : uppercase && savedKey === keyOrder[i].upper.charAt(j) ? 'selected' 
-                  : numlock && !symlock && savedKey === keyOrder[i].num.charAt(j) ? 'selected' 
-                  : numlock && symlock && savedKey === keyOrder[i].sym.charAt(j) ? 'selected' 
-                  : ''}
-              ">
+              on:mouseenter="{setCursor_Pointer}"
+              on:mouseleave="{setCursor_Default}"
+              class="{!uppercase && !numlock && savedKey === keyOrder[i].default.charAt(j) ? 'selected' : uppercase && savedKey === keyOrder[i].upper.charAt(j) ? 'selected' : numlock && !symlock && savedKey === keyOrder[i].num.charAt(j) ? 'selected' : numlock && symlock && savedKey === keyOrder[i].sym.charAt(j) ? 'selected' : ''}
+              "
+            >
               <p>
                 {uppercase ? keyOrder[i].upper.charAt(j) : numlock && !symlock ? keyOrder[i].num.charAt(j) : numlock && symlock ? keyOrder[i].sym.charAt(j) : keyOrder[i].default.charAt(j)}
               </p>
@@ -165,14 +157,18 @@
         </div>
       {/each}
       <div class="row row-3">
-        <button on:click="{handleNumKey}" class="num">
+        <button
+          on:click="{handleNumKey}"
+          on:mouseenter="{setCursor_Pointer}"
+          on:mouseleave="{setCursor_Default}"
+          class="num"
+        >
           <p>{numlock ? 'abc' : '123'}</p>
         </button>
         <div class="spacebar"></div>
       </div>
     </container>
   </container>
-
 </section>
 
 <style>
@@ -207,24 +203,38 @@
     left: calc(50% - 25px);
   }
 
+  /*   .dropillo {
+    font-family: "Whirlybats";
+    font-size: 32px;
+    float: left;
+    margin: 0;
+    margin-bottom:16px;
+    font-variation-settings: "anim" 100;
+    transition: 1s;
+  } */
+
   .dropillo {
     font-family: "Whirlybats";
-    font-size: 150px;
+    font-size: 190px;
     padding-right: 8px;
+    padding-bottom: 8px;
     float: left;
-    line-height: 0.7;
+    margin: 0;
+    font-variation-settings: "anim" 100;
+    transition: 1s;
   }
 
-  .infobox {
+  /*   .infobox {
     font-family: "Nicholson Beta";
     grid-column: 4 / 10;
     display: flex;
+    flex-direction:column;
     justify-content: center;
     align-items: center;
     font-size: 20px;
     z-index: 0;
 
-    /*       custom tab/bookmark style */
+          custom tab/bookmark style
 
     margin-bottom: -20px;
     padding: 20px;
@@ -235,10 +245,44 @@
     color: var(--white);
     text-align: center;
     background-color: var(--lightnavy);
+     width: 80%;
+    max-width: 640px;
+  } */
+
+  .infobox {
+    font-family: "Nicholson Beta";
+    grid-column: 4 / 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    margin: 0 0 -20px 0;
+    padding: 20px;
+    box-shadow: inset 0px -8px 0px 0px rgba(0, 0, 0, 0.05);
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom: none;
+    color: var(--white);
+    text-align: center;
+    background-color: var(--lightnavy);
+    width: 80%;
+    max-width: 580px;
+    z-index: 1;
+  }
+
+  hr {
+    max-width: 80px;
   }
   .infobox p {
-    max-width: 800px;
+    margin-top: 0;
+    max-width: 600px;
     text-align: left;
+  }
+  .infobox span span:nth-child(odd) {
+    color: #8ed3f9;
+  }
+  .infobox span span:nth-child(even) {
+    color: var(--white);
   }
   @media screen and (max-width: 1024px) {
     .infobox {
@@ -248,7 +292,14 @@
   @media screen and (max-width: 750px) {
     .infobox {
       grid-column: 1 / 13;
-      box-shadow: none;
+      display: block;
+      padding: calc(var(--padding) * 2) var(--padding) calc(var(--padding) * 2)
+        var(--padding);
+      width: auto;
+    }
+
+    .dropillo {
+      line-height: 0.8;
     }
   }
   @media screen and (max-width: 600px) {
@@ -268,8 +319,13 @@
     height: fit-content;
     background-color: var(--bg);
     color: var(--type);
-    z-index: 0;
+    z-index: 1;
     position: relative;
+    width: calc(100% - var(--padding) * 2);
+    max-width: 900px;
+    
+    -webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
   }
 
   .interactive {
@@ -546,6 +602,11 @@
       border-top-left-radius: 0px;
       border-top-right-radius: 0px;
       padding-top: calc(var(--padding) * 2 + 64px);
+      padding-bottom: calc(var(--padding) + 32px);
+    }
+    .infobox {
+      width: unset;
+      max-width: none;
     }
   }
 
@@ -564,7 +625,7 @@
 
   @media (hover: hover) {
     button:hover {
-      cursor: pointer;
+      cursor: none;
       animation: basicAnimation 1s infinite;
     }
     button:hover:after {

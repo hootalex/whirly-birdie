@@ -1,6 +1,13 @@
 <script>
   import { whirlyPresets } from "./config.js";
   import { TOUCH } from "./stores.js";
+  import {
+    setCursor_Pointer,
+    setCursor_Default,
+    setCursor_Grab,
+    setCursor_Grabbing,
+    setCursor_Edit,
+  } from "./_Cursor.svelte";
   export let initialStyle = "whirly-birdie-medium";
   export let initialText = "Whirly Birdy is a cool font!";
   export let fontSize = "6vw";
@@ -44,29 +51,39 @@
 </script>
 
 <section bind:this="{dom_node}">
-
   <div class="controls" bind:this="{ref1}">
-    <div class="select">
+    <div
+      class="select"
+      on:mouseenter="{setCursor_Pointer}"
+      on:mouseleave="{setCursor_Default}"
+    >
       <select
         aria-label="Type Presets"
         class="type-presets"
-        on:change="{(e) => presetChanged(e.currentTarget)}">
+        on:change="{(e) => presetChanged(e.currentTarget)}"
+      >
         <option hidden disabled class="custom" value="Custom">Custom</option>
         {#each styleNames as styleName}
           <option
             value="{styleName}"
-            selected="{styleName === initialStyle ? true : false}">
+            selected="{styleName === initialStyle ? true : false}"
+          >
             {styleName.replace(/-/g, ' ')}
           </option>
         {/each}
       </select>
       <div class="select_arrow"></div>
-
     </div>
 
     <div class="sliders">
-      <div class="slider">
-        <label>Weight:</label>
+      <div
+        class="slider"
+        on:mouseenter="{setCursor_Grab}"
+        on:mouseleave="{setCursor_Default}"
+        on:mousedown="{setCursor_Grabbing}"
+        on:mouseup="{setCursor_Grab}"
+      >
+        <label>Weight</label>
         <input
           aria-label="Weight Axis"
           type="range"
@@ -77,10 +94,17 @@
           on:input="{(e) => {
             selectCustom();
             variableAxis.weight = e.currentTarget.value;
-          }}" />
+          }}"
+        />
       </div>
-      <div class="slider">
-        <label>Width:</label>
+      <div
+        class="slider"
+        on:mouseenter="{setCursor_Grab}"
+        on:mouseleave="{setCursor_Default}"
+        on:mousedown="{setCursor_Grabbing}"
+        on:mouseup="{setCursor_Grab}"
+      >
+        <label>Width</label>
         <input
           aria-label="Width Axis"
           type="range"
@@ -91,10 +115,17 @@
           on:input="{(e) => {
             selectCustom();
             variableAxis.width = e.currentTarget.value;
-          }}" />
+          }}"
+        />
       </div>
-      <div class="slider">
-        <label>Italic:</label>
+      <div
+        class="slider"
+        on:mouseenter="{setCursor_Grab}"
+        on:mouseleave="{setCursor_Default}"
+        on:mousedown="{setCursor_Grabbing}"
+        on:mouseup="{setCursor_Grab}"
+      >
+        <label>Italic</label>
         <input
           aria-label="Italic Axis"
           type="range"
@@ -105,29 +136,35 @@
           on:input="{(e) => {
             selectCustom();
             variableAxis.italic = e.currentTarget.value;
-          }}" />
+          }}"
+        />
       </div>
     </div>
 
-    <svg
+<!--     <svg
       width="50"
       height="13"
       viewBox="0 0 50 13"
       fill="none"
-      xmlns="http://www.w3.org/2000/svg">
+      xmlns="http://www.w3.org/2000/svg"
+    >
       <path
         d="M15.1215 3.85465C20.7446 6.95349 24.9999 13 24.9999 13C24.9999 13
         29.2554 6.80233 34.8785 3.85465C40.5015 0.906979 50 2.86102e-06 50
         2.86102e-06L-1.1365e-06 5.32481e-06C-1.1365e-06 5.32481e-06 9.49844
         0.755819 15.1215 3.85465Z"
-        fill="{'var(--type)'}"></path>
-    </svg>
+        fill="{'var(--type)'}"
+      ></path>
+    </svg> -->
   </div>
 
   <p
     contenteditable="true"
     spellcheck="false"
-    style="{cssString + ';font-size:' + fontSize}">
+    style="{cssString + ';font-size:' + fontSize}"
+    on:mouseenter="{setCursor_Edit}"
+    on:mouseleave="{setCursor_Default}"
+  >
     {initialText}
   </p>
 </section>
@@ -192,14 +229,14 @@
     font-size: 13px;
     display: inline-block;
     color: var(--type);
-/*     font-feature-settings: "salt" 2; */
+    /*     font-feature-settings: "salt" 2; */
   }
   .slider {
     display: inline-block;
     margin: 8px 15px 8px 15px;
   }
   label {
-    margin-right: 4px;
+    cursor: none;
   }
   p {
     font-size: 5vw;
@@ -236,77 +273,91 @@ p:focus:after{
     text-transform: capitalize;
   }
 
-  input[type="range"] {
-    -webkit-appearance: none;
-    margin: 12px 0;
-    background-color: var(--bg);
-    margin: 0;
-    padding: 0 0 4px 0;
-  }
-  input[type="range"]:focus {
-    outline: none;
-  }
-  input[type="range"]::-webkit-slider-runnable-track {
-    height: 1px;
-    cursor: pointer;
-    background: var(--type);
-  }
-  input[type="range"]::-webkit-slider-thumb {
-    height: 25px;
-    width: 16px;
-    border-radius: 5px;
-    border: 1px solid var(--type);
-    background: var(--bg);
-    cursor: pointer;
-    -webkit-appearance: none;
-    margin-top: -12px;
-  }
-  input[type="range"]:focus::-webkit-slider-runnable-track {
-    background: var(--type);
-  }
-  input[type="range"]::-moz-range-track {
-    height: 1px;
-    cursor: pointer;
-    background: rgba(0, 0, 0, 0.78);
-  }
-  input[type="range"]::-moz-range-thumb {
-    height: 25px;
-    width: 16px;
-    border-radius: 5px;
-    border: 1px solid var(--type);
-    background: var(--bg);
-    cursor: pointer;
-  }
-  input[type="range"]::-ms-track {
-    height: 1px;
-    cursor: pointer;
-    background: transparent;
-    border-color: transparent;
-    color: transparent;
-  }
-  input[type="range"]::-ms-fill-lower {
-    background: var(--type);
-    border-radius: 0px;
-  }
-  input[type="range"]::-ms-fill-upper {
-    background: var(--type);
-    border-radius: 0px;
-  }
-  input[type="range"]::-ms-thumb {
-    height: 25px;
-    width: 16px;
-    border-radius: 5px;
-    border: 1px solid var(--type);
-    background: var(--bg);
-    cursor: pointer;
-    height: 1px;
-  }
-  input[type="range"]:focus::-ms-fill-lower {
-    background: var(--type);
-  }
-  input[type="range"]:focus::-ms-fill-upper {
-    background: var(--type);
-  }
+input[type=range] {
+ width: 100%;
+ margin: 20px 0;
+ background-color: transparent;
+ -webkit-appearance: none;
+}
+input[type=range]:focus {
+ outline: none;
+}
+input[type=range]::-webkit-slider-runnable-track {
+ background: var(--type);
+ border: 0px solid var(--type);
+ border: 0;
+ width: 100%;
+ height: 1px;
+}
+input[type=range]::-webkit-slider-thumb {
+ margin-top: -15px;
+ width: 50px;
+ height: 31px;
+ background: var(--type);
+ border: 4.6px solid rgba(0, 0, 0, 0);
+ border-radius: 2px;
+ -webkit-appearance: none;
+}
+input[type=range]:focus::-webkit-slider-runnable-track {
+ background: var(--type);
+}
+input[type=range]::-moz-range-track {
+ background: var(--type);
+ border: 0px solid var(--type);
+ border: 0;
+ width: 100%;
+ height: 1px;
+}
+input[type=range]::-moz-range-thumb {
+ width: 50px;
+ height: 31px;
+ background: var(--type);
+ border: 4.6px solid rgba(0, 0, 0, 0);
+ border-radius: 2px;
+}
+input[type=range]::-ms-track {
+ background: transparent;
+ border-color: transparent;
+ border-width: 15px 0;
+ color: transparent;
+ width: 100%;
+ height: 1px;
+}
+input[type=range]::-ms-fill-lower {
+ background: var(--type);
+ border: 0px solid var(--type);
+ border: 0;
+}
+input[type=range]::-ms-fill-upper {
+ background: var(--type);
+ border: 0px solid var(--type);
+ border: 0;
+}
+input[type=range]::-ms-thumb {
+ width: 50px;
+ height: 31px;
+ background: var(--type);
+ border: 4.6px solid rgba(0, 0, 0, 0);
+ border-radius: 2px;
+ margin-top: 0px;
+ /*Needed to keep the Edge thumb centred*/
+}
+input[type=range]:focus::-ms-fill-lower {
+ background: var(--type);
+}
+input[type=range]:focus::-ms-fill-upper {
+ background: var(--type);
+}
+/*TODO: Use one of the selectors from https://stackoverflow.com/a/20541859/7077589 and figure out
+how to remove the virtical space around the range input in IE*/
+@supports (-ms-ime-align:auto) {
+ /* Pre-Chromium Edge only styles, selector taken from hhttps://stackoverflow.com/a/32202953/7077589 */
+ input[type=range] {
+   margin: 0;
+   /*Edge starts the margin from the thumb, not the track as other browsers do*/
+ }
+}
+
 
   .select {
     position: relative;
@@ -317,10 +368,10 @@ p:focus:after{
   .select select {
     width: 230px;
     font-family: "Nicholson Beta";
-/*     font-feature-settings: "salt" 2; */
+    /*     font-feature-settings: "salt" 2; */
     font-size: 13px;
     display: inline-block;
-    cursor: pointer;
+    cursor: none;
     padding: 7px 10px;
     outline: 0;
     border-radius: 0px;
@@ -396,12 +447,20 @@ p:focus:after{
       margin-right: 8px;
       width: 48px;
       text-align: left;
+      align-items: center;
+      display: flex;
     }
     input[type="range"] {
       padding-bottom: 0;
     }
     p {
-      margin: 30px 10px 60px 10px;
+      margin: 0px 10px 60px 10px;
+    }
+    .controls:before {
+      opacity: 0;
+    }
+    svg {
+      display: none;
     }
   }
 </style>
