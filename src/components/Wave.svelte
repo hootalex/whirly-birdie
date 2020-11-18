@@ -55,6 +55,7 @@
   div {
     width: 100%;
     height: calc(2 * var(--padding));
+    margin-bottom: -2px;
   }
   svg {
     width: 100%;

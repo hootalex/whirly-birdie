@@ -226,6 +226,9 @@
       display: inline-block;
       margin: 4px;
     }
+    .sticky{
+position:absolute;
+    }
     .colorpicker div.selected {
       /* border-color:white; */
     }

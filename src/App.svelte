@@ -315,6 +315,7 @@
     width: 100vw;
     height: auto;
     overflow: hidden;
+    margin-bottom: -1px;
   }
 
   /* no outline for non-keyboard-inputs elements */
@@ -344,6 +345,7 @@
     }
   }
   @media screen and (max-width: 750px) {
+
     section.constrain {
       display: grid;
       padding: 0;

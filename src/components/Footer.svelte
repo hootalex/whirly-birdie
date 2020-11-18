@@ -90,7 +90,7 @@
         <a
           on:mouseenter="{setCursor_Pointer}"
           on:mouseleave="{setCursor_Default}"
-          href="https://twitter.com/aelx"
+          href="https://twitter.com/hootalex"
         ><span class="wb-icon">B</span></a>
                 <a
           on:mouseenter="{setCursor_Pointer}"
