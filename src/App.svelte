@@ -127,7 +127,7 @@
 <style>
   @font-face {
     font-family: "Whirly Birdie";
-    src: url("https://cdn.glitch.com/1711052e-ea5e-4036-9c61-dd3ef6782855%2FWhirlyBirdieGX.ttf?v=1605650754868")
+    src: url("https://cdn.glitch.com/1711052e-ea5e-4036-9c61-dd3ef6782855%2FWhirlyBirdieGX.ttf?v=1605710436716")
       format("truetype");
   }
 
