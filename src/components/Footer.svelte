@@ -4,6 +4,7 @@
   import { scrollY, WIDTH, HEIGHT } from "./stores.js";
   import { spring } from "svelte/motion";
 
+  let showAnim = false;
   const yMax = spring(0, {
     stiffness: 0.12,
     damping: 0.59,
@@ -22,34 +23,36 @@
     let ratio = (minMax - min) / (windowHeight * (offsetTop - offsetBottom));
 
     yMax.set(ratio);
+    
+    showAnim = (documentHeight - windowHeight*2) <= value ? true : false;
   });
 
-  //  function randomWhirlybat(length) {
-  //    let result           = '';
-  //    let characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789.,:;…!?·•*#//\(){}[]-_’«»"$€£¥+=><¬~^∅%↻◚╋☁☌☺⚑@&©®™℠`';
-  //    for ( var i = 0; i < length; i++ ) {
-  //       result += characters.charAt(Math.floor(Math.random() * characters.length));
-  //    }
-  //    return result;
-  // }
+   function randomWhirlybat(length) {
+     let result           = '';
+     let characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789.,:;…!?·•*#//\(){}[]-_’«»"$€£¥+=><¬~^∅%↻◚╋☁☌☺⚑@&©®™℠`';
+     for ( var i = 0; i < length; i++ ) {
+        result += characters.charAt(Math.floor(Math.random() * characters.length));
+     }
+     return result;
+  }
 
-  // function animationloop(x) {
-  //   let el = document.getElementById(x)
+  function animationloop(x) {
+    let el = document.getElementById(x)
 
-  //   el.addEventListener("webkitAnimationIteration", switchoutbat);
+    el.addEventListener("webkitAnimationIteration", switchoutbat);
 
-  //   function switchoutbat() {
-  //   console.log("animation relooped")
-  //   el.innerHTML = randomWhirlybat(1)
-  //   }
-  // }
+    function switchoutbat() {
+    console.log("animation relooped")
+    el.innerHTML = randomWhirlybat(1)
+    }
+  }
 
-  //   onMount(()=>{
-  //     animationloop("pipe1")
-  //     animationloop("pipe2")
-  //     animationloop("pipe3")
-  //     animationloop("pipe4")
-  //   })
+    onMount(()=>{
+      animationloop("pipe1")
+      animationloop("pipe2")
+      animationloop("pipe3")
+      animationloop("pipe4")
+    })
 </script>
 
 <footer>
@@ -122,7 +125,10 @@
     y="0px"
     viewbox="0 0 1500 800"
     xml:space="preserve"
-  ><style type="text/css">
+  >
+             
+    
+    <style type="text/css">
       @keyframes pipeani {
         0% {
           offset-distance: 0%;
@@ -149,35 +155,10 @@
         fill: #aa9abf;
       }
 
-      #pipe1 {
-        offset-path: path(
-          "M134.7-97.9v248.8c0,37.8,30.6,68.4,68.4,68.4h180.3c37.8,0,68.4,30.6,68.4,68.4v289 c0,37.8,30.6,68.4,68.4,68.4H755c37.8,0,68.4,30.6,68.4,68.4v270.9"
-        );
-        offset-distance: 10%;
-        /*     animation: pipeani 10s infinite; */
-      }
-      #pipe2 {
-        offset-path: path(
-          "M558.7-152.2v537.7c0,37.8-30.6,68.4-68.4,68.4H259.9c-37.8,0-68.4,30.6-68.4,68.4v451.3"
-        );
-        offset-distance: 10%;
-        /*       animation: pipeani 9s infinite; */
-      }
-      #pipe3 {
-        offset-path: path(
-          "M695.6-156.5v592c0,37.8,30.6,68.4,68.4,68.4h239c37.8,0,68.4,30.6,68.4,68.4v384"
-        );
-        offset-distance: 10%;
-        /*         animation: pipeani 8s infinite; */
-      }
-      #pipe4 {
-        offset-path: path(
-          "M1353.9-127.2v306.3c0,37.8-30.6,68.4-68.4,68.4h-247.7c-37.8,0-68.4,30.6-68.4,68.4v0 c0,37.8,30.6,68.4,68.4,68.4h152.1c37.8,0,68.4,30.6,68.4,68.4v519.8"
-        );
-        offset-distance: 10%;
-        /*           animation: pipeani 7s infinite; */
-      }
     </style>
+    
+
+    
     <path
       class="st1"
       d="M134.7-97.9v248.8c0,37.8,30.6,68.4,68.4,68.4h180.3c37.8,0,68.4,30.6,68.4,68.4v289
@@ -196,11 +177,60 @@
       d="M1353.9-127.2v306.3c0,37.8-30.6,68.4-68.4,68.4h-247.7c-37.8,0-68.4,30.6-68.4,68.4v0
 	c0,37.8,30.6,68.4,68.4,68.4h152.1c37.8,0,68.4,30.6,68.4,68.4v519.8"
     ></path>
-    <!--       <text text-anchor="middle" class="pipe" id="pipe1">S</text>
+    
+    
+      <text text-anchor="middle" class="pipe" id="pipe1">S</text>
       <text text-anchor="middle" class="pipe" id="pipe2">C</text>
       <text text-anchor="middle" class="pipe" id="pipe3">V</text>
       <text text-anchor="middle" class="pipe" id="pipe4">j</text>
- -->
+    
+    {#if showAnim}
+     <animateMotion 
+    path="M134.7-97.9v248.8c0,37.8,30.6,68.4,68.4,68.4h180.3c37.8,0,68.4,30.6,68.4,68.4v289,c0,37.8,30.6,68.4,68.4,68.4H755c37.8,0,68.4,30.6,68.4,68.4v270.9"
+    href="#pipe1" 
+    dur="10s" 
+    rotate="auto"
+    repeatcount="indefinite"
+    keytimes="0;1"  
+    calcmode="spline"
+    keysplines="0.4, 0, 0.2, 1"
+                     ></animateMotion>
+      
+            <animateMotion 
+    path="M558.7-152.2v537.7c0,37.8-30.6,68.4-68.4,68.4H259.9c-37.8,0-68.4,30.6-68.4,68.4v451.3"
+    href="#pipe2" 
+    dur="9s" 
+    rotate="auto"
+    repeatcount="indefinite"
+    keytimes="0;1"  
+    calcmode="spline"
+    keysplines="0.4, 0, 0.2, 1"
+    ></animateMotion>
+      
+                  <animateMotion 
+    path="M695.6-156.5v592c0,37.8,30.6,68.4,68.4,68.4h239c37.8,0,68.4,30.6,68.4,68.4v384"
+    href="#pipe3" 
+    dur="8s" 
+    rotate="auto"
+    repeatcount="indefinite"
+    keytimes="0;1"  
+    calcmode="spline"
+    keysplines="0.4, 0, 0.2, 1"
+    ></animateMotion>
+      
+                        <animateMotion 
+    path="M1353.9-127.2v306.3c0,37.8-30.6,68.4-68.4,68.4h-247.7c-37.8,0-68.4,30.6-68.4,68.4v0,c0,37.8,30.6,68.4,68.4,68.4h152.1c37.8,0,68.4,30.6,68.4,68.4v519.8"
+    href="#pipe4" 
+    dur="7s" 
+    rotate="auto"
+    repeatcount="indefinite"
+    keytimes="0;1"  
+    calcmode="spline"
+    keysplines="0.4, 0, 0.2, 1"
+    ></animateMotion>
+    
+    {/if}
+
   </svg>
 </footer>
 
