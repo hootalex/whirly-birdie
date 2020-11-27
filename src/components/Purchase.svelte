@@ -274,7 +274,8 @@
 
   .purchasebutton {
     -webkit-appearance: none;
-    background-color: var(--blue);
+/*     background-color: var(--blue); */
+    background-color: var(--green);
     border: 0;
     padding: 15px 25px 15px 25px;
     font-size: 20px;
