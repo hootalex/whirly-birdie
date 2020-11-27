@@ -285,6 +285,7 @@
   }
   .purchasebutton:hover {
     cursor: none;
+    opacity: .9;
   }
 
   input[type="radio"] {
