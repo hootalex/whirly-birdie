@@ -20,6 +20,31 @@
   const handleForm = (e) => {
     console.log(fontChoice);
   };
+  
+   var phraseIndex = 0;
+
+      var licensingPhrases = [
+        "Licensing is unlimited!",
+        "Seriously!",
+        "Apps...",
+        "Books...",
+        "Packaging...",
+        "Neon signs...",
+        "Restaurant awnings...",
+        "Video games...",
+        "It’s really that simple!",
+        "Don’t believe us?",
+        "Buy the font and find out!",
+        "Licensing"
+      ];
+
+      function licensingSwap() {
+        
+        event.preventDefault();
+        
+        document.getElementById("licensing").innerHTML =
+          licensingPhrases[phraseIndex++ % licensingPhrases.length];
+      }
 </script>
 
 <section
@@ -96,9 +121,11 @@
       type="submit"
       value="Purchase    →"
     />
+    
   </form>
   
-  
+          <button  on:mouseenter="{setCursor_Pointer}" on:mouseleave="{setCursor_Default}" on:click="{() => licensingSwap()}" class="purchasebutton" id="licensing">Licensing</button>
+
   
 </section>
 
@@ -287,6 +314,16 @@
     cursor: none;
     opacity: .9;
   }
+  
+    .purchasebutton:active {
+    cursor: none;
+    opacity: 1;
+  }
+  
+  #licensing {
+    margin-top: 10px;
+    background-color: var(--blue);
+}
 
   input[type="radio"] {
     margin-left: 0;
