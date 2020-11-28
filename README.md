@@ -2,4 +2,4 @@
 
 ## By Richard Yee & Alex Tomlinson
 
-Thank you for visiting
+Thank you for visiting :)

@@ -133,7 +133,7 @@
 
   @font-face {
     font-family: "Whirlybats";
-    src: url("https://cdn.glitch.com/1711052e-ea5e-4036-9c61-dd3ef6782855%2FWhirlybatsGX.ttf?v=1605642891823")
+    src: url("https://cdn.glitch.com/1711052e-ea5e-4036-9c61-dd3ef6782855%2FWhirlybatsGX.ttf?v=1606583618243")
       format("truetype");
   }
 
