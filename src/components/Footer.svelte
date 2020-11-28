@@ -181,7 +181,7 @@
     
       <text text-anchor="middle" class="pipe" id="pipe1">S</text>
       <text text-anchor="middle" class="pipe" id="pipe2">C</text>
-      <text text-anchor="middle" class="pipe" id="pipe3">V</text>
+      <text text-anchor="middle" class="pipe" id="pipe3">s</text>
       <text text-anchor="middle" class="pipe" id="pipe4">j</text>
     
     {#if showAnim}
