@@ -107,8 +107,10 @@
         ><span class="wb-icon">Μ</span></a>
         
       </div>
+      
     </container>
   </div>
+  
   <div
     class="stamp"
     style="transform:scale3D({0.5 + 0.5 * $yMax},{0.5 + 0.5 * $yMax},{0.5 + 0.5 * $yMax});
@@ -232,6 +234,11 @@
     {/if}
 
   </svg>
+  
+          <div class="contact">
+    <a on:mouseenter="{setCursor_Pointer}" on:mouseleave="{setCursor_Default}" href="mailto:1alextomlinson@gmail.com">Contact</a>
+  </div>
+  
 </footer>
 
 <style>
@@ -277,6 +284,17 @@ z-index: 1;
     border-radius: 50%;
     background: #aa9abf;
   }
+  
+  .contact a {
+    font-family: "Nicholson Beta";
+    color: #aa9abf;
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    z-index: 10;
+    font-size: 17px;
+}
+  
   footer {
     position: sticky;
     overflow: hidden;
