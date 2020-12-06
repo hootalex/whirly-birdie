@@ -159,6 +159,8 @@ export const smallwords2 = [
   "Lakes",
   "Thought",
   "Blue",
+  "Red",
+  "Green",
   "Cube",
   "Cats",
   "Bugs",
