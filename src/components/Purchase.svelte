@@ -267,7 +267,8 @@
 
   .whirlybirdiecharset span:hover,
   .whirlybatcharset span:hover {
-    transform: scale3d(2.5, 2.5, 2.5);
+/*     transform: scale3d(2.5, 2.5, 2.5); */
+    transform: scale(2.5);
     background-color: white;
     border-radius: 5px;
     color: var(--black);
