@@ -127,7 +127,7 @@
 <style>
   @font-face {
     font-family: "Whirly Birdie";
-    src: url("https://cdn.glitch.com/1711052e-ea5e-4036-9c61-dd3ef6782855%2FWhirlyBirdieGX.ttf?v=1607226790987")
+    src: url("https://cdn.glitch.com/1711052e-ea5e-4036-9c61-dd3ef6782855%2FWhirlyBirdieGX.ttf?v=1607546326012")
       format("truetype");
   }
 
@@ -223,6 +223,20 @@
       font-variation-settings: "anim" 200;
     }
   }
+  
+  @keyframes -global-squash {
+  0%   { font-variation-settings: "wght" 80, "wdth" 110, "ital" 0; }
+  10% { font-variation-settings: "wght" 80, "wdth" 50, "ital" 0; }
+  20% { font-variation-settings: "wght" 80, "wdth" 150, "ital" 0; }
+  30% { font-variation-settings: "wght" 100, "wdth" 150, "ital" 0; }
+  40% { font-variation-settings: "wght" 50, "wdth" 150, "ital" 0; }
+  50% { font-variation-settings: "wght" 50, "wdth" 50, "ital" 0; }
+  60% { font-variation-settings: "wght" 50, "wdth" 50, "ital" 20; }
+  70% { font-variation-settings: "wght" 100, "wdth" 50, "ital" 0; }
+  80% { font-variation-settings: "wght" 100, "wdth" 80, "ital" 0; }
+  90% { font-variation-settings: "wght" 50, "wdth" 150, "ital" 0; }
+  100% { font-variation-settings: "wght" 80, "wdth" 110, "ital" 0; }
+}
 
   @keyframes -global-basicAnimationDelay {
     0% {

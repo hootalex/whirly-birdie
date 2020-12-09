@@ -156,7 +156,8 @@
     justify-content: space-evenly;
   }
   .checkout {
-    top: calc(var(--padding) * 1.5);
+/*     top: calc(var(--padding) * 1.5); */
+    top: calc(var(--padding) - 110px);
     position: sticky;
     width: 420px;
     background: white;
@@ -247,6 +248,10 @@
     margin: 1px;
     transition: transform 0.1s;
     color: var(--navy);
+    
+    width: clamp(23px, 3.3vw, 70px);
+    text-align: center;
+    overflow: hidden;
   }
 
   .notselected {
@@ -277,6 +282,10 @@
   .whirlybatcharset span:hover {
     animation: basicAnimation 1s 1;
     animation-fill-mode: forwards;
+  }
+  
+    .whirlybirdiecharset span:hover {
+    animation: squash 5s infinite;
   }
 
   body {
