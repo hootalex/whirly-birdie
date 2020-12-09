@@ -280,8 +280,8 @@
   }
 
   .whirlybatcharset span:hover {
-    animation: basicAnimation 1s 1;
-    animation-fill-mode: forwards;
+    animation: basicAnimation 1s infinite;
+/*     animation-fill-mode: forwards; */
   }
   
     .whirlybirdiecharset span:hover {
