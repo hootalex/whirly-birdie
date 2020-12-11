@@ -125,11 +125,45 @@
   </form>
   
           <button  on:mouseenter="{setCursor_Pointer}" on:mouseleave="{setCursor_Default}" on:click="{() => licensingSwap()}" class="purchasebutton" id="licensing">Licensing</button>
-
+          
+          <details>
+    <summary on:mouseenter="{setCursor_Pointer}" on:mouseleave="{setCursor_Default}">?</summary>
+            We use PayPal to accept payments, but you can also purchase the fonts on <a on:mouseenter="{setCursor_Pointer}" on:mouseleave="{setCursor_Default}" href="https://gumroad.com/hootalex">Gumroad</a>.
+</details>
   
 </section>
 
 <style>
+  
+  details > summary {
+  list-style: none;
+}
+details > summary::-webkit-details-marker {
+  display: none;
+}
+  
+  a {
+color: var(--green);
+    text-decoration: none;
+    border-bottom: 1px solid var(--green);
+}
+  
+  summary {
+width: 25px;
+    border: 1px solid black;
+    display: inline;
+    padding: 10px;
+    margin-top: 30px;
+    border-radius: 30px;
+    text-align: center;
+    margin-bottom: 17px;
+}
+
+  details {
+font-family: "Nicholson Beta";
+    font-size: 20px;
+}
+  
   section {
     display: block;
     /*         overflow-x:hidden; */
