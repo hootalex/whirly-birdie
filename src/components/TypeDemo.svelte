@@ -245,6 +245,7 @@
     border-bottom: 0px solid var(--type);
     color: var(--type);
     position: relative;
+    line-height: 1.1;
     /*   display: flex;
   justify-content: center; */
   }
