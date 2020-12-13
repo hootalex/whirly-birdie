@@ -19,7 +19,7 @@
   .message {
     /*     animation: bounce .5s ease infinite alternate; */
     font-size: 12px;
-    margin-left: 20px;
+/*     margin-left: 20px; */
     margin-bottom: 30px;
   }
   .bird {
