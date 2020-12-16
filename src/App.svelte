@@ -145,7 +145,7 @@
 
   @font-face {
     font-family: "Nicholson Beta";
-    src: url("https://cdn.glitch.com/1711052e-ea5e-4036-9c61-dd3ef6782855%2FNicholsonGothicsw-Regular.woff2?v=1598380691911")
+    src: url("https://cdn.glitch.com/1711052e-ea5e-4036-9c61-dd3ef6782855%2FNayAug-Regular.woff2?v=1608090687142")
       format("woff2");
   }
 
