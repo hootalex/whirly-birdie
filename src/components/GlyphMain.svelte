@@ -87,7 +87,7 @@
     >
       Whirlybats
     </span>
-    <span style="opacity:.5">is a dingbat font with a twist. Instead of using
+    <span style="opacity:.7">is a dingbat font with a twist. Instead of using
       variable font technology to squish and squash type, Whirlybats uses it to
       animate its 200+ glyphs.</span>
     Try it below! ↓
@@ -268,6 +268,9 @@
     width: 80%;
     max-width: 580px;
     z-index: 1;
+    
+        -webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
   }
 
   hr {

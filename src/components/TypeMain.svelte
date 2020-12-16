@@ -12,7 +12,7 @@
     >
       Whirly Birdie
     </span>
-    <span style="opacity:.5">is a display typeface inspired by American
+    <span style="opacity:.55">is a display typeface inspired by American
       advertising of the 50s. Thanks to its variable capabilities, Whirly Birdie
       can look as at home on a luxury-scented candle as it would on a cereal
       box.</span>
@@ -110,6 +110,9 @@
     background-color: var(--sun);
     width: 80%;
     max-width: 580px;
+    
+    -webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
   }
   p {
     max-width: 800px;
