@@ -156,7 +156,7 @@ width: 25px;
     margin-top: 30px;
     border-radius: 30px;
     text-align: center;
-    margin-bottom: 17px;
+    margin-bottom: 0px;
 }
 
   details {
