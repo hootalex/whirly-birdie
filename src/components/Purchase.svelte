@@ -128,7 +128,7 @@
           
           <details>
     <summary on:mouseenter="{setCursor_Pointer}" on:mouseleave="{setCursor_Default}">?</summary>
-            We use PayPal to accept payments, but you can also purchase our fonts on <a on:mouseenter="{setCursor_Pointer}" on:mouseleave="{setCursor_Default}" href="https://gumroad.com/hootalex">Gumroad</a>.
+            <br>We use PayPal to accept payments, but you can also purchase our fonts on <a on:mouseenter="{setCursor_Pointer}" on:mouseleave="{setCursor_Default}" href="https://gumroad.com/hootalex">Gumroad</a>.
 </details>
   
 </section>
