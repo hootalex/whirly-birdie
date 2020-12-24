@@ -122,6 +122,7 @@
     font-size: 64px;
     z-index: 999;
     pointer-events: none;
+    display:none;
   }
   .cursor.default {
     top: 16px;
@@ -153,10 +154,9 @@
     margin: 0;
     transition: font-variation-settings 0.4s;
   }
+  
+  @media (hover: hover) and (pointer: fine) {
+  .cursor { display: block; }
+  } 
 
-  @media (hover: none) {
-    .cursor {
-      display: none;
-    }
-  }
 </style>
