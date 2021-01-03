@@ -235,6 +235,10 @@
 
   </svg>
   
+            <div class="telegramstickers">
+    <a on:mouseenter="{setCursor_Pointer}" on:mouseleave="{setCursor_Default}" href="https://t.me/addstickers/Whirlybats">Telegram Stickers</a>
+  </div>
+  
           <div class="contact">
     <a on:mouseenter="{setCursor_Pointer}" on:mouseleave="{setCursor_Default}" href="mailto:1alextomlinson@gmail.com">Contact</a>
   </div>
@@ -291,6 +295,16 @@ z-index: 1;
     position: absolute;
     bottom: 20px;
     right: 20px;
+    z-index: 10;
+    font-size: 17px;
+}
+  
+    .telegramstickers a {
+    font-family: "Nicholson Beta";
+    color: #aa9abf;
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
     z-index: 10;
     font-size: 17px;
 }
