@@ -307,6 +307,7 @@ z-index: 1;
     left: 20px;
     z-index: 10;
     font-size: 17px;
+      display: none;
 }
   
   footer {

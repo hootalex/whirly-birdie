@@ -84,7 +84,7 @@ scrollY.subscribe(value => {
   }
 
   .char11 {
-    margin-left: -3vw;
+    margin-left: -3.5vw;
   }
 
   .char7, .char9, .char11, .char14, .char16, .char18 {
