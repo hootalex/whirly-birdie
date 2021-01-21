@@ -88,7 +88,7 @@
                 <a
           on:mouseenter="{setCursor_Pointer}"
           on:mouseleave="{setCursor_Default}"
-          href="https://aelx.co"
+          href="https://alex.gd"
         ><span class="wb-icon">H</span></a>
         <a
           on:mouseenter="{setCursor_Pointer}"
