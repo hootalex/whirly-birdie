@@ -5,7 +5,7 @@
 </script>
 
 <div class="infobox">
-  <p class="dropillo">1</p>
+  <p class="dropillo notranslate">1</p>
   <p>
     <span
       style="text-transform: uppercase; letter-spacing: 2px; font-family: 'Whirly Birdie'; font-variation-settings: 'wght' 70, 'wdth' 150, 'ital' 0;"

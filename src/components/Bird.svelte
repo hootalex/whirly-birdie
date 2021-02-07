@@ -6,7 +6,7 @@
 <div>
   <p class="message">{message}</p>
   <!-- The prop called "Message" takes the received string and adds additional string elements! -->
-  <p class="bird">!</p>
+  <p class="bird notranslate">!</p>
   <p></p>
 </div>
 

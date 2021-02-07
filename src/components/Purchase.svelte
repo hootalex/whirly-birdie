@@ -48,7 +48,7 @@
 </script>
 
 <section
-  class="specimen"
+  class="specimen notranslate"
   on:mouseenter="{setCursor_Zoom}"
   on:mouseleave="{setCursor_Default}"
 >

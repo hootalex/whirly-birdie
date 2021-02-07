@@ -18,7 +18,7 @@ scrollY.subscribe(value => {
 </script>
 
 
-<div class="titleContainer">
+<div class="titleContainer notranslate">
   <Bird message={'A new Font!'}/> 
   <h1>
     <div class="title" aria-label="Whirly Birdie!">

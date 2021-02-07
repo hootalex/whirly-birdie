@@ -3,7 +3,7 @@
   export let positionZ = "z-index:0";
 </script>
 
-<div class="car" style="{carColor};{positionZ}">J</div>
+<div class="car notranslate" style="{carColor};{positionZ}">J</div>
 
 <style>
   .car {

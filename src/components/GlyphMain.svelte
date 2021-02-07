@@ -80,7 +80,7 @@
 </script>
 
 <div class="infobox">
-  <p class="dropillo">O</p>
+  <p class="dropillo notranslate">O</p>
   <p>
     <span
       style="text-transform: uppercase; letter-spacing: 2px; font-family: 'Whirly Birdie'; font-variation-settings: 'wght' 70, 'wdth' 150, 'ital' 0;"
@@ -102,7 +102,7 @@
     mobileColor="{'#25417a'}"
   />
 
-  <container class="interactive">
+  <container class="interactive notranslate">
     <div class="display">
       <div class="featured {isTyping ? 'typing' : ''}">
         <p

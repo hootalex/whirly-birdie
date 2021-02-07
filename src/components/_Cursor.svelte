@@ -60,7 +60,7 @@
 />
 
 <div
-  class="cursor {$cursor.type}"
+  class="cursor {$cursor.type} notranslate"
   class:hide
   style="transform:translate({x}px,{y}px)"
 >

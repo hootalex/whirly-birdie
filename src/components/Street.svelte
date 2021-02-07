@@ -2,7 +2,7 @@
   import Tree from "./Tree.svelte";
 </script>
 
-<div class="street">
+<div class="street notranslate">
   <div class="car">(</div>
   <div class="car2">J</div>
   <div class="snail">j</div>

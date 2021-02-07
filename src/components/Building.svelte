@@ -7,8 +7,8 @@
   export let buildingSize = "widetower";
 </script>
 
-<div class="towercontainer {buildingSize}" style="{positionX};{positionY}">
-  <div class="towersign" style="{signText ? signCSS : 'display:none'}">
+<div class="towercontainer notranslate {buildingSize}" style="{positionX};{positionY}">
+  <div class="towersign notranslate" style="{signText ? signCSS : 'display:none'}">
     {@html signText}
     <!--Can be HTML Tags-->
   </div>

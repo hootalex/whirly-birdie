@@ -160,6 +160,7 @@
 
   <p
     contenteditable="true"
+     class="notranslate"
     spellcheck="false"
     style="{cssString + ';font-size:' + fontSize}"
     on:mouseenter="{setCursor_Edit}"
