@@ -44,7 +44,7 @@
 </script>
 
 <button
-  class="wb-icon 
+  class="wb-icon notranslate
          {selected ? 'wb-iconend' : ''}
          {$scrollY < positions[0] || !loaded ? 'hide' : ''}
          "
@@ -74,7 +74,7 @@
   {/if}
 </button>
 
-<nav class="hide {selected ? 'expanded' : ''}">
+<nav class="hide notranslate {selected ? 'expanded' : ''}">
   <div
     bind:this="{bg}"
     class="bg 

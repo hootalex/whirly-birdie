@@ -65,35 +65,35 @@
   style="transform:translate({x}px,{y}px)"
 >
   {#if $cursor.type === 'default'}
-    <p style="color: var(--white)" class="wb-icon">ϊ</p>
-    <p style="color: var(--black)" class="wb-icon">2</p>
+    <p style="color: var(--white)" class="wb-icon notranslate">ϊ</p>
+    <p style="color: var(--black)" class="wb-icon notranslate">2</p>
   {:else if $cursor.type === 'pointer'}
-    <p style="color: var(--white)" class="wb-icon">ω</p>
-    <p style="color: var(--black)" class="wb-icon">Ω</p>
+    <p style="color: var(--white)" class="wb-icon notranslate">ω</p>
+    <p style="color: var(--black)" class="wb-icon notranslate">Ω</p>
   {:else if $cursor.type === 'grab'}
     <p
       style="color: var(--white);font-variation-settings:'anim' {$cursor.state}"
-      class="wb-icon"
+      class="wb-icon notranslate"
     >
       ο
     </p>
   <p
       style="color: var(--black);font-variation-settings:'anim' {$cursor.state}"
-      class="wb-icon"
+      class="wb-icon notranslate"
     >
       Ο
     </p>
   
   {:else if $cursor.type === 'edit'}
-    <p style="color: var(--white)" class="wb-icon">Ϗ</p>
-    <p style="color: var(--black)" class="wb-icon">ϗ</p>
+    <p style="color: var(--white)" class="wb-icon notranslate">Ϗ</p>
+    <p style="color: var(--black)" class="wb-icon notranslate">ϗ</p>
   {:else if $cursor.type === 'zoom'}
-    <p style="color: var(--white)" class="wb-icon">ͱ</p>
-    <p style="color: var(--black)" class="wb-icon">Ͱ</p>
+    <p style="color: var(--white)" class="wb-icon notranslate">ͱ</p>
+    <p style="color: var(--black)" class="wb-icon notranslate">Ͱ</p>
   {:else if $cursor.type === 'random'}
     <p
       style="color: var(--white)"
-      class="wb-icon"
+      class="wb-icon notranslate"
       on:webkitAnimationEnd="{reset_Anim}"
       class:anim="{$cursorAnim}"
     >
@@ -101,7 +101,7 @@
     </p>
     <p
       style="color: var(--black)"
-      class="wb-icon"
+      class="wb-icon notranslate"
       on:webkitAnimationEnd="{reset_Anim}"
       class:anim="{$cursorAnim}"
     >
