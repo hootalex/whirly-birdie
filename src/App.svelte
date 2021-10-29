@@ -127,31 +127,31 @@
 <style>
   @font-face {
     font-family: "Whirly Birdie";
-    src: url("https://cdn.glitch.com/1711052e-ea5e-4036-9c61-dd3ef6782855%2FWhirlyBirdieGX.ttf?v=1608503993542")
+    src: url("https://ursaminor.xyz/hosted/1711052e-ea5e-4036-9c61-dd3ef6782855_WhirlyBirdieGX.ttf")
       format("truetype");
   }
 
   @font-face {
     font-family: "Whirlybats";
-    src: url("https://cdn.glitch.com/1711052e-ea5e-4036-9c61-dd3ef6782855%2FWhirlybatsGX.ttf?v=1607629059414")
+    src: url("https://ursaminor.xyz/hosted/1711052e-ea5e-4036-9c61-dd3ef6782855_WhirlybatsGX.ttf")
       format("truetype");
   }
 
   @font-face {
     font-family: "Whirlybats UI";
-    src: url("https://cdn.glitch.com/1711052e-ea5e-4036-9c61-dd3ef6782855%2FWhirlybatsUIGX.ttf?v=1596161084186")
+    src: url("https://ursaminor.xyz/hosted/1711052e-ea5e-4036-9c61-dd3ef6782855_WhirlybatsUIGX.ttf")
       format("truetype");
   }
 
   @font-face {
     font-family: "Nicholson Beta";
-    src: url("https://cdn.glitch.com/1711052e-ea5e-4036-9c61-dd3ef6782855%2FNayAug-Regular.woff2?v=1608090687142")
+    src: url("https://ursaminor.xyz/hosted/1711052e-ea5e-4036-9c61-dd3ef6782855_NayAug-Regular.woff2")
       format("woff2");
   }
 
   @font-face {
     font-family: "Nicholson Beta Bold";
-    src: url("https://cdn.glitch.com/1711052e-ea5e-4036-9c61-dd3ef6782855%2FNicholsonGothic-Bold.otf?v=1601341212402")
+    src: url("https://ursaminor.xyz/hosted/1711052e-ea5e-4036-9c61-dd3ef6782855_NicholsonGothic-Bold.otf")
       format("opentype");
   }
 
