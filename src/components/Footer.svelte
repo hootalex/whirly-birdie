@@ -98,7 +98,7 @@
                 <a
           on:mouseenter="{setCursor_Pointer}"
           on:mouseleave="{setCursor_Default}"
-          href="https://instagram.com/hoot.alex"
+          href="https://instagram.com/hootalexarchive"
         ><span class="wb-icon">®</span></a>
                 <a
           on:mouseenter="{setCursor_Pointer}"
